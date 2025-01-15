@@ -9,9 +9,9 @@ const Services = () => {
           {/* Service Card 1 */}
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <img
-              src="https://via.placeholder.com/300x200"
+              src="https://i.ibb.co.com/pnXqCyM/e1.jpg"
               alt="Home Cleaning"
-              className="w-full h-48 object-cover"
+              className="w-full h-auto object-cover"
             />
             <div className="p-6 text-center">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
@@ -25,9 +25,9 @@ const Services = () => {
           {/* Service Card 2 */}
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <img
-              src="https://via.placeholder.com/300x200"
+              src="https://i.ibb.co.com/YbXD9Jn/e2.jpg"
               alt="Gardening"
-              className="w-full h-48 object-cover"
+              className="w-full h-auto object-cover"
             />
             <div className="p-6 text-center">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
@@ -41,9 +41,9 @@ const Services = () => {
           {/* Service Card 3 */}
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <img
-              src="https://via.placeholder.com/300x200"
+              src="https://i.ibb.co.com/QrjFnhd/e3.jpg"
               alt="Plumbing"
-              className="w-full h-48 object-cover"
+              className="w-full h-auto object-cover"
             />
             <div className="p-6 text-center">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
@@ -57,9 +57,9 @@ const Services = () => {
           {/* Service Card 4 */}
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <img
-              src="https://via.placeholder.com/300x200"
+              src="https://i.ibb.co.com/09MZ651/e4.jpg"
               alt="Electrical Repair"
-              className="w-full h-48 object-cover"
+              className="w-full h-auto object-cover"
             />
             <div className="p-6 text-center">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
@@ -73,9 +73,9 @@ const Services = () => {
           {/* Service Card 5 */}
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <img
-              src="https://via.placeholder.com/300x200"
+              src="https://i.ibb.co.com/TThWBwk/e5.jpg"
               alt="Painting"
-              className="w-full h-48 object-cover"
+              className="w-full h-auto object-cover"
             />
             <div className="p-6 text-center">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
@@ -89,9 +89,9 @@ const Services = () => {
           {/* Service Card 6 */}
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <img
-              src="https://via.placeholder.com/300x200"
+              src="  https://i.ibb.co.com/PcxCTjh/e6.jpg"
               alt="Appliance Repairs"
-              className="w-full h-48 object-cover"
+              className="w-full h-auto object-cover"
             />
             <div className="p-6 text-center">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">

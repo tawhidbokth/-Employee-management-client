@@ -9,21 +9,22 @@ const Testimonials = () => {
       role: 'CEO at Company',
       message:
         'This company has been an incredible partner, helping us grow and achieve our goals. Highly recommended!',
-      image: 'https://via.placeholder.com/150',
+      image: 'https://i.ibb.co.com/zrB3hxG/Resume-Review-and-Improvement.webp',
     },
     {
       name: 'Jane Smith',
       role: 'Marketing Head',
       message:
         'The service provided was exceptional, and the team was very professional throughout the project.',
-      image: 'https://via.placeholder.com/150',
+      image:
+        'https://i.ibb.co.com/xfS5Rfp/385490917-1510631689733100-2473354057220819702-n-LE-upscale-balanced-x4-removebg-preview-1-modified.png',
     },
     {
       name: 'Alice Johnson',
       role: 'Project Manager',
       message:
         'We had an amazing experience working with them. Their expertise and attention to detail is unmatched!',
-      image: 'https://via.placeholder.com/150',
+      image: 'https://i.ibb.co.com/nBSJKKt/service-img-1-4.jpg',
     },
   ];
 

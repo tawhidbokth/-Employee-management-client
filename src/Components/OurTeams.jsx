@@ -21,7 +21,7 @@ const OurTeams = () => {
                 <img
                   alt="team"
                   class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"
-                  src="https://dummyimage.com/200x200"
+                  src="https://i.ibb.co.com/vmHtDT7/385490917-1510631689733100-2473354057220819702-n-LE-upscale-balanced-x4-removebg-preview.png"
                 />
                 <div class="flex-grow sm:pl-8">
                   <h2 class="title-font font-medium text-lg text-gray-900">
@@ -81,7 +81,7 @@ const OurTeams = () => {
                 <img
                   alt="team"
                   class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"
-                  src="https://dummyimage.com/201x201"
+                  src="https://i.ibb.co.com/x8FTFPb/t1.jpg"
                 />
                 <div class="flex-grow sm:pl-8">
                   <h2 class="title-font font-medium text-lg text-gray-900">
@@ -141,7 +141,7 @@ const OurTeams = () => {
                 <img
                   alt="team"
                   class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"
-                  src="https://dummyimage.com/204x204"
+                  src="https://i.ibb.co.com/3c0gnp2/download-12.jpg"
                 />
                 <div class="flex-grow sm:pl-8">
                   <h2 class="title-font font-medium text-lg text-gray-900">
@@ -201,7 +201,7 @@ const OurTeams = () => {
                 <img
                   alt="team"
                   class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"
-                  src="https://dummyimage.com/206x206"
+                  src="https://i.ibb.co.com/Jyk2NKd/Mock-Interview-Preparation.webp"
                 />
                 <div class="flex-grow sm:pl-8">
                   <h2 class="title-font font-medium text-lg text-gray-900">

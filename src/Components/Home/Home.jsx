@@ -8,23 +8,12 @@ import Testimonials from '../Testmonials';
 
 const Home = () => {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Navbar */}
-      <Navbar />
-
-      {/* Content Area */}
-      <main className="flex-grow">
-        <div>
-          <Banner></Banner>
-          <Services></Services>
-          <OurTeams></OurTeams>
-          <AnnouncementSection></AnnouncementSection>
-          <Testimonials></Testimonials>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <Footer />
+    <div>
+      <Banner></Banner>
+      <Services></Services>
+      <OurTeams></OurTeams>
+      <AnnouncementSection></AnnouncementSection>
+      <Testimonials></Testimonials>
     </div>
   );
 };

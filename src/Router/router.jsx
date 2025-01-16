@@ -3,6 +3,8 @@ import MainLayout from '../Layout/MainLayout';
 import ErrorPages from '../Pages/ErrorPages';
 import ContactUs from '../Pages/ContactUs';
 import Home from '../Components/Home/Home';
+import Dashboard from '../Layout/Dashboard';
+import WorkSheet from '../Pages/Dashboard/Components/workSheet';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,18 @@ const router = createBrowserRouter([
       {
         path: 'contac',
         element: <ContactUs></ContactUs>,
+      },
+    ],
+  },
+
+  {
+    path: 'dashboard',
+    element: <Dashboard></Dashboard>,
+
+    children: [
+      {
+        path: 'worksheet',
+        element: <WorkSheet></WorkSheet>,
       },
     ],
   },

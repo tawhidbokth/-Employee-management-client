@@ -5,6 +5,10 @@ import ContactUs from '../Pages/ContactUs';
 import Home from '../Components/Home/Home';
 import Dashboard from '../Layout/Dashboard';
 import WorkSheet from '../Pages/Dashboard/Components/workSheet';
+import PaymentHistory from '../Pages/Dashboard/Components/PaymentHistory';
+import EmployeeList from '../Pages/Dashboard/Components/EmployeeList';
+import EmployeeDetails from '../Pages/Dashboard/Components/EmployeeDetails';
+import Progress from '../Pages/Dashboard/Components/Progress';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +36,25 @@ const router = createBrowserRouter([
       {
         path: 'worksheet',
         element: <WorkSheet></WorkSheet>,
+      },
+
+      {
+        path: 'paymanthistory',
+        element: <PaymentHistory></PaymentHistory>,
+      },
+
+      {
+        path: 'employlist',
+        element: <EmployeeList></EmployeeList>,
+      },
+
+      {
+        path: 'slug',
+        element: <EmployeeDetails></EmployeeDetails>,
+      },
+      {
+        path: 'progress',
+        element: <Progress></Progress>,
       },
     ],
   },

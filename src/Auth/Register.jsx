@@ -1,138 +1,190 @@
-// import React, { useState } from "react";
-// import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-// import { getFirestore, collection, addDoc } from "firebase/firestore";
-// import { ToastContainer, toast } from "react-toastify";
-// import 'react-toastify/dist/ReactToastify.css';
+import { useContext, useState } from 'react';
+
+import { Link, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Register = () => {
-  // const auth = getAuth();
-  // const db = getFirestore();
-  // const [form, setForm] = useState({
-  //   email: "",
-  //   password: "",
-  //   role: "",
-  //   bankAccount: "",
-  //   salary: "",
-  //   designation: "",
-  //   photo: null,
-  // });
+  const { createUser } = useContext(AuthContext);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setForm({ ...form, [name]: value });
-  // };
+  const handleRegister = e => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const photo = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
 
-  // const handleFileChange = (e) => {
-  //   setForm({ ...form, photo: e.target.files[0] });
-  // };
+    const passwordValidation = validatePassword(password);
+    if (!passwordValidation.isValid) {
+      toast.error(passwordValidation.message, {
+        position: 'top-center',
+        autoClose: 2000,
+      });
+      return;
+    }
 
-  // const validatePassword = (password) => {
-  //   const errors = [];
-  //   if (password.length < 6) errors.push("Password must be at least 6 characters.");
-  //   if (!/[A-Z]/.test(password)) errors.push("Password must have at least one capital letter.");
-  //   if (!/[^a-zA-Z0-9]/.test(password)) errors.push("Password must have at least one special character.");
-  //   return errors;
-  // };
+    createUser(email, password, name, photo)
+      .then(() => {
+        form.reset();
+        setError('');
+        toast.success('Registration Successful!', {
+          position: 'top-center',
+          autoClose: 2000,
+        });
 
-  // const handleRegister = async (e) => {
-  //   e.preventDefault();
-  //   const passwordErrors = validatePassword(form.password);
-  //   if (passwordErrors.length > 0) {
-  //     passwordErrors.forEach((error) => toast.error(error));
-  //     return;
-  //   }
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
+      })
+      .catch(error => {
+        setError(error.message);
+        toast.error(error.message, {
+          position: 'top-center',
+          autoClose: 2000,
+        });
+      });
+  };
 
-  //   try {
-  //     const photoUrl = await imgbbUploader(form.photo); // Upload photo and get URL
-  //     const userCredential = await createUserWithEmailAndPassword(auth, form.email, form.password);
-  //     await updateProfile(userCredential.user, { photoURL: photoUrl });
-
-  // Save user data to Firestore
-  //     await addDoc(collection(db, "users"), {
-  //       email: form.email,
-  //       role: form.role,
-  //       bankAccount: form.bankAccount,
-  //       salary: form.salary,
-  //       designation: form.designation,
-  //       photo: photoUrl,
-  //     });
-
-  //     toast.success("Registration successful!");
-  //   } catch (error) {
-  //     toast.error(error.message);
-  //   }
-  // };
+  const validatePassword = password => {
+    if (password.length < 6) {
+      return {
+        isValid: false,
+        message: 'Password must be at least 6 characters long.',
+      };
+    }
+    if (!/[A-Z]/.test(password)) {
+      return {
+        isValid: false,
+        message: 'Password must contain at least one uppercase letter.',
+      };
+    }
+    if (!/[a-z]/.test(password)) {
+      return {
+        isValid: false,
+        message: 'Password must contain at least one lowercase letter.',
+      };
+    }
+    return { isValid: true };
+  };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
-      <form className="bg-white p-8 rounded shadow-md w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="max-w-md w-full p-6 bg-white shadow-md rounded-lg">
+        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">
+          Register Now
+        </h1>
+        <form onSubmit={handleRegister}>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">
+              Photo URL
+            </label>
+            <input
+              type="url"
+              name="photo"
+              placeholder="Photo URL"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+              required
+            />
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          className="input-field"
-          // onChange={handleInputChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          className="input-field"
-          // onChange={handleInputChange}
-          required
-        />
-        <select
-          name="role"
-          className="input-field"
-          // onChange={handleInputChange}
-          required
-        >
-          <option value="" disabled selected>
-            Select Role
-          </option>
-          <option value="Employee">Employee</option>
-          <option value="HR">HR</option>
-        </select>
-        <input
-          type="text"
-          name="bankAccount"
-          placeholder="Bank Account Number"
-          className="input-field"
-          // onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="salary"
-          placeholder="Salary"
-          className="input-field"
-          // onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="designation"
-          placeholder="Designation"
-          className="input-field"
-          // onChange={handleInputChange}
-          required
-        />
-        <input
-          type="file"
-          name="photo"
-          accept="image/*"
-          className="input-field"
-          // onChange={handleFileChange}
-          required
-        />
-        <button type="submit" className="btn-primary w-full">
-          Register
-        </button>
-        {/* <ToastContainer /> */}
-      </form>
+            <select
+              name="role"
+              className="input-field"
+              // onChange={handleInputChange}
+              required
+            >
+              <option value="" disabled selected>
+                Select Role
+              </option>
+              <option value="Employee">Employee</option>
+              <option value="HR">HR</option>
+            </select>
+            <input
+              type="text"
+              name="bankAccount"
+              placeholder="Bank Account Number"
+              className="input-field"
+              // onChange={handleInputChange}
+              required
+            />
+            <input
+              type="text"
+              name="salary"
+              placeholder="Salary"
+              className="input-field"
+              // onChange={handleInputChange}
+              required
+            />
+            <input
+              type="text"
+              name="designation"
+              placeholder="Designation"
+              className="input-field"
+              // onChange={handleInputChange}
+              required
+            />
+            <input
+              type="file"
+              name="photo"
+              accept="image/*"
+              className="input-field"
+              // onChange={handleFileChange}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+          >
+            Register
+          </button>
+        </form>
+        <p className="mt-4 text-gray-600 text-center">
+          Already have an account?{' '}
+          <Link to="/login" className="text-blue-600 hover:underline">
+            Login
+          </Link>
+        </p>
+      </div>
+
+      <ToastContainer />
     </div>
   );
 };

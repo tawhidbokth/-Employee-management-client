@@ -1,77 +1,92 @@
-import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
+import Swal from 'sweetalert2';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useEffect, useState } from 'react';
+import useTasks from '../../../Hooks/useTasks';
 
 const WorkSheet = () => {
-  const [tasks, setTasks] = useState([]);
-  const [task, setTask] = useState('Sales');
-  const [hours, setHours] = useState(0);
-  const [date, setDate] = useState(new Date());
-  const [editTask, setEditTask] = useState(null);
+  const [tasks, refetch] = useTasks();
 
-  // Add a new task
-  const addTask = () => {
-    const newTask = { id: Date.now(), task, hours, date };
-    setTasks([newTask, ...tasks]);
-    // Here, you'd send the data to the backend for DB storage.
-    setTask('Sales');
-    setHours(0);
-    setDate(new Date());
-  };
+  const [formData, setFormData] = useState({
+    date: new Date().toISOString().substr(0, 10), // Default current date
+  });
 
-  // Edit an existing task
-  const updateTask = () => {
-    const updatedTasks = tasks.map(t =>
-      t.id === editTask.id ? { ...editTask } : t
-    );
-    setTasks(updatedTasks);
-    setEditTask(null);
-  };
+  const handleSubmit = e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const initialData = Object.fromEntries(formData.entries());
+    console.log(initialData);
 
-  // Delete a task
-  const deleteTask = id => {
-    const filteredTasks = tasks.filter(t => t.id !== id);
-    setTasks(filteredTasks);
-    // Send delete request to the backend here.
+    fetch('http://localhost:5000/tasks', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(initialData),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.insertedId) {
+          Swal.fire({
+            position: 'top-center',
+            icon: 'success',
+            title: 'Food Has been added.',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          refetch();
+        }
+      });
   };
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Work Sheet</h1>
+      <h1 className="text-2xl font-bold mb-4">Work Sheet{tasks.length}</h1>
 
-      {/* Form */}
-      <div className="flex items-center gap-4 mb-6">
-        <select
-          value={task}
-          onChange={e => setTask(e.target.value)}
-          className="border px-3 py-2 rounded w-1/4"
+      <div className="max-w-full mx-auto my-8 p-6 bg-white shadow-md rounded-md">
+        <form
+          onSubmit={handleSubmit}
+          className=" grid grid-cols-4 gap-2 items-center"
         >
-          <option value="Sales">Sales</option>
-          <option value="Support">Support</option>
-          <option value="Content">Content</option>
-          <option value="Paper-work">Paper-work</option>
-        </select>
+          <div>
+            <label className="block text-sm font-medium">Tasks Category</label>
+            <select name="tasks" required className="w-full p-2 border rounded">
+              <option value="Sales">Sales</option>
+              <option value="Support">Support</option>
+              <option value="Content">Content</option>
+              <option value="Paper-work">Paper-work</option>
+            </select>
+          </div>
 
-        <input
-          type="number"
-          value={hours}
-          onChange={e => setHours(Number(e.target.value))}
-          placeholder="Hours Worked"
-          className="border px-3 py-2 rounded w-1/4"
-        />
+          <div>
+            <label className="block text-sm font-medium">Hours</label>
+            <input
+              type="number"
+              name="hours"
+              required
+              placeholder="Enter quantity"
+              className="w-full p-2 border rounded"
+            />
+          </div>
 
-        <DatePicker
-          selected={date}
-          onChange={d => setDate(d)}
-          className="border px-3 py-2 rounded w-1/4"
-        />
-
-        <button
-          onClick={addTask}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Add / Submit
-        </button>
+          <div>
+            <label className="block text-sm font-medium">Date</label>
+            <input
+              type="date"
+              name="date"
+              value={formData.date}
+              className="border px-3 py-2 rounded w-full"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium">Submit Tasks</label>
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+            >
+              Submit Tasks
+            </button>
+          </div>
+        </form>
       </div>
 
       {/* Table */}
@@ -86,10 +101,10 @@ const WorkSheet = () => {
         </thead>
         <tbody>
           {tasks.map(t => (
-            <tr key={t.id}>
-              <td className="border px-4 py-2">{t.task}</td>
+            <tr key={t._id}>
+              <td className="border px-4 py-2">{t.tasks}</td>
               <td className="border px-4 py-2">{t.hours}</td>
-              <td className="border px-4 py-2">{t.date.toDateString()}</td>
+              <td className="border px-4 py-2">{t.date}</td>
               <td className="border px-4 py-2 flex gap-2">
                 <button
                   onClick={() => setEditTask(t)}
@@ -110,7 +125,7 @@ const WorkSheet = () => {
       </table>
 
       {/* Edit Modal */}
-      {editTask && (
+      {/* {editTask && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded w-1/3">
             <h2 className="text-xl font-bold mb-4">Edit Task</h2>
@@ -161,8 +176,8 @@ const WorkSheet = () => {
               </button>
             </div>
           </div>
-        </div>
-      )}
+        </div> */}
+      {/* )} */}
     </div>
   );
 };

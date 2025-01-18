@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,14 +9,19 @@ const Register = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = e => {
+  const handleRegister = async e => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
-    const photo = form.photo.value;
+    const photoFile = form.photo.files[0];
     const email = form.email.value;
     const password = form.password.value;
+    const role = form.role.value;
+    const bankAccount = form.bankAccount.value;
+    const salary = form.salary.value;
+    const designation = form.designation.value;
 
+    // Validate password
     const passwordValidation = validatePassword(password);
     if (!passwordValidation.isValid) {
       toast.error(passwordValidation.message, {
@@ -27,26 +31,72 @@ const Register = () => {
       return;
     }
 
-    createUser(email, password, name, photo)
-      .then(() => {
-        form.reset();
-        setError('');
-        toast.success('Registration Successful!', {
-          position: 'top-center',
-          autoClose: 2000,
-        });
+    // Upload photo to imgBB
+    const formData = new FormData();
+    formData.append('image', photoFile);
 
-        setTimeout(() => {
-          navigate('/');
-        }, 2000);
-      })
-      .catch(error => {
-        setError(error.message);
-        toast.error(error.message, {
-          position: 'top-center',
-          autoClose: 2000,
-        });
+    const imgbbApiKey = 'd063823825cba3084bfba5df55b8c9a8'; // Replace with your imgBB API key
+    const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgbbApiKey}`;
+
+    try {
+      const imgUploadResponse = await fetch(imgbbUrl, {
+        method: 'POST',
+        body: formData,
       });
+      const imgData = await imgUploadResponse.json();
+
+      if (!imgData.success) {
+        throw new Error('Failed to upload image. Please try again.');
+      }
+
+      const photo = imgData.data.url;
+
+      // Create user
+      createUser(email, password, name, photo)
+        .then(() => {
+          const newUser = {
+            name,
+            email,
+            photo,
+            role,
+            bank_account_no: bankAccount,
+            salary,
+            designation,
+          };
+
+          // Save user to database
+          fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newUser),
+          })
+            .then(res => res.json())
+            .then(() => {
+              form.reset();
+              toast.success('Registration Successful!', {
+                position: 'top-center',
+                autoClose: 2000,
+              });
+              setTimeout(() => {
+                navigate('/');
+              }, 2000);
+            });
+        })
+        .catch(error => {
+          setError(error.message);
+          toast.error(error.message, {
+            position: 'top-center',
+            autoClose: 2000,
+          });
+        });
+    } catch (error) {
+      toast.error(error.message, {
+        position: 'top-center',
+        autoClose: 2000,
+      });
+    }
   };
 
   const validatePassword = password => {
@@ -62,10 +112,10 @@ const Register = () => {
         message: 'Password must contain at least one uppercase letter.',
       };
     }
-    if (!/[a-z]/.test(password)) {
+    if (!/[!@#$%^&*]/.test(password)) {
       return {
         isValid: false,
-        message: 'Password must contain at least one lowercase letter.',
+        message: 'Password must contain at least one special character.',
       };
     }
     return { isValid: true };
@@ -84,19 +134,18 @@ const Register = () => {
               type="text"
               name="name"
               placeholder="Name"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2"
               required
             />
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">
-              Photo URL
+              Photo
             </label>
             <input
-              type="url"
+              type="file"
               name="photo"
-              placeholder="Photo URL"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2"
               required
             />
           </div>
@@ -108,7 +157,7 @@ const Register = () => {
               type="email"
               name="email"
               placeholder="Email"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2"
               required
             />
           </div>
@@ -120,14 +169,15 @@ const Register = () => {
               type="password"
               name="password"
               placeholder="Password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2"
               required
             />
-
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">Role</label>
             <select
               name="role"
-              className="input-field"
-              // onChange={handleInputChange}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2"
               required
             >
               <option value="" disabled selected>
@@ -136,36 +186,40 @@ const Register = () => {
               <option value="Employee">Employee</option>
               <option value="HR">HR</option>
             </select>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">
+              Bank Account Number
+            </label>
             <input
               type="text"
               name="bankAccount"
               placeholder="Bank Account Number"
-              className="input-field"
-              // onChange={handleInputChange}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2"
               required
             />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">
+              Salary
+            </label>
             <input
               type="text"
               name="salary"
               placeholder="Salary"
-              className="input-field"
-              // onChange={handleInputChange}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2"
               required
             />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">
+              Designation
+            </label>
             <input
               type="text"
               name="designation"
               placeholder="Designation"
-              className="input-field"
-              // onChange={handleInputChange}
-              required
-            />
-            <input
-              type="file"
-              name="photo"
-              accept="image/*"
-              className="input-field"
-              // onChange={handleFileChange}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2"
               required
             />
           </div>
@@ -176,15 +230,14 @@ const Register = () => {
             Register
           </button>
         </form>
-        <p className="mt-4 text-gray-600 text-center">
+        <p className="text-center mt-4">
           Already have an account?{' '}
-          <Link to="/login" className="text-blue-600 hover:underline">
-            Login
+          <Link to="/login" className="text-blue-500 hover:underline">
+            Login here
           </Link>
         </p>
+        <ToastContainer />
       </div>
-
-      <ToastContainer />
     </div>
   );
 };

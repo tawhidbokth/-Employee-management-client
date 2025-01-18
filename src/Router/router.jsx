@@ -13,6 +13,7 @@ import AdminDashboard from '../Pages/Dashboard/Components/AdminDashboard/AdminDa
 import Payroll from '../Pages/Dashboard/Components/AdminDashboard/Payroll';
 import Register from '../Auth/Register';
 import Login from '../Auth/Login';
+import UpdateTasks from '../Pages/Dashboard/Components/UpdateTasks';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,13 @@ const router = createBrowserRouter([
       {
         path: 'worksheet',
         element: <WorkSheet></WorkSheet>,
+      },
+
+      {
+        path: 'update/:id',
+        element: <UpdateTasks></UpdateTasks>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/tasks/${params.id}`),
       },
 
       {

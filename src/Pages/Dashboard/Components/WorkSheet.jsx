@@ -1,14 +1,9 @@
 import Swal from 'sweetalert2';
-import 'react-datepicker/dist/react-datepicker.css';
-import { useEffect, useState } from 'react';
 import useTasks from '../../../Hooks/useTasks';
+import { Link } from 'react-router-dom';
 
 const WorkSheet = () => {
   const [tasks, refetch] = useTasks();
-
-  const [formData, setFormData] = useState({
-    date: new Date().toISOString().substr(0, 10), // Default current date
-  });
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -75,9 +70,8 @@ const WorkSheet = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Work Sheet{tasks.length}</h1>
-
+    <div className="p-6 mt-10">
+      <h1 className="text-2xl font-bold mb-4 text-center">Work Sheet</h1>
       <div className="max-w-full mx-auto my-8 p-6 bg-white shadow-md rounded-md">
         <form
           onSubmit={handleSubmit}
@@ -109,7 +103,6 @@ const WorkSheet = () => {
             <input
               type="date"
               name="date"
-              value={formData.date}
               className="border px-3 py-2 rounded w-full"
             />
           </div>
@@ -124,7 +117,6 @@ const WorkSheet = () => {
           </div>
         </form>
       </div>
-
       {/* Table */}
       <table className="table-auto w-full border">
         <thead>
@@ -142,12 +134,11 @@ const WorkSheet = () => {
               <td className="border px-4 py-2">{t.hours}</td>
               <td className="border px-4 py-2">{t.date}</td>
               <td className="border px-4 py-2 flex gap-2">
-                <button
-                  onClick={() => setEditTask(t)}
-                  className="text-blue-500 hover:underline"
-                >
-                  🖊
-                </button>
+                <Link to={`/dashboard/update/${t._id}`}>
+                  <button className="btn btn-link text-blue-500 flex items-center justify-center gap-2">
+                    🖊
+                  </button>
+                </Link>
                 <button
                   onClick={() => handleDelete(t._id)}
                   className="text-red-500 hover:underline"
@@ -159,61 +150,7 @@ const WorkSheet = () => {
           ))}
         </tbody>
       </table>
-
-      {/* Edit Modal */}
-      {/* {editTask && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded w-1/3">
-            <h2 className="text-xl font-bold mb-4">Edit Task</h2>
-
-            <select
-              value={editTask.task}
-              onChange={e =>
-                setEditTask(prev => ({ ...prev, task: e.target.value }))
-              }
-              className="border px-3 py-2 rounded w-full mb-4"
-            >
-              <option value="Sales">Sales</option>
-              <option value="Support">Support</option>
-              <option value="Content">Content</option>
-              <option value="Paper-work">Paper-work</option>
-            </select>
-
-            <input
-              type="number"
-              value={editTask.hours}
-              onChange={e =>
-                setEditTask(prev => ({
-                  ...prev,
-                  hours: Number(e.target.value),
-                }))
-              }
-              className="border px-3 py-2 rounded w-full mb-4"
-            />
-
-            <DatePicker
-              selected={new Date(editTask.date)}
-              onChange={d => setEditTask(prev => ({ ...prev, date: d }))}
-              className="border px-3 py-2 rounded w-full mb-4"
-            />
-
-            <div className="flex justify-end gap-4">
-              <button
-                onClick={() => setEditTask(null)}
-                className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
-              >
-                Close
-              </button>
-              <button
-                onClick={updateTask}
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-              >
-                Update
-              </button>
-            </div>
-          </div>
-        </div> */}
-      {/* )} */}
+      ,
     </div>
   );
 };

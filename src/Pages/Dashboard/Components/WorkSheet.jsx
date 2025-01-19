@@ -1,22 +1,33 @@
 import Swal from 'sweetalert2';
 import useTasks from '../../../Hooks/useTasks';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../../Provider/AuthProvider';
 
 const WorkSheet = () => {
   const [tasks, refetch] = useTasks();
+  const { user } = useContext(AuthContext);
 
   const handleSubmit = e => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const initialData = Object.fromEntries(formData.entries());
-    console.log(initialData);
+
+    // Add user email and name to the initialData object
+    const finalData = {
+      ...initialData,
+      email: user?.email || '', // Use user email if available
+      employee: user?.displayName || '', // Use user name if available
+    };
+
+    console.log(finalData);
 
     fetch('http://localhost:5000/tasks', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
       },
-      body: JSON.stringify(initialData),
+      body: JSON.stringify(finalData),
     })
       .then(res => res.json())
       .then(data => {

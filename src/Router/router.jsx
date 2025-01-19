@@ -14,6 +14,7 @@ import Payroll from '../Pages/Dashboard/Components/AdminDashboard/Payroll';
 import Register from '../Auth/Register';
 import Login from '../Auth/Login';
 import UpdateTasks from '../Pages/Dashboard/Components/UpdateTasks';
+import WellcomePage from '../Pages/Dashboard/WellcomePage';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,11 @@ const router = createBrowserRouter([
 
     children: [
       {
+        path: 'dashboard',
+        element: <WellcomePage></WellcomePage>,
+      },
+
+      {
         path: 'worksheet',
         element: <WorkSheet></WorkSheet>,
       },
@@ -79,12 +85,12 @@ const router = createBrowserRouter([
         element: <Progress></Progress>,
       },
       {
-        path: 'admin',
+        path: 'allemployee',
         element: <AdminDashboard></AdminDashboard>,
       },
 
       {
-        path: 'payrul',
+        path: 'payroll',
         element: <Payroll></Payroll>,
       },
     ],

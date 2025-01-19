@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   useReactTable,
   createColumnHelper,
@@ -6,13 +6,15 @@ import {
 } from '@tanstack/react-table';
 import { Dialog } from '@headlessui/react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../Provider/AuthProvider';
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [paymentDetails, setPaymentDetails] = useState({ month: '', year: '' });
-
+  const { user } = useContext(AuthContext);
+  const transactionId = `TXN${Math.floor(Math.random() * 1000000)}`;
   useEffect(() => {
     const fetchEmployees = async () => {
       const response = await fetch('http://localhost:5000/users');
@@ -52,9 +54,12 @@ const EmployeeList = () => {
 
     const paymentRequest = {
       employeeId: selectedEmployee._id,
+      employees: user.displayName,
+      email: user.email,
       salary: selectedEmployee.salary,
       month: paymentDetails.month,
       year: paymentDetails.year,
+      transactionId: transactionId,
     };
 
     try {

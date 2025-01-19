@@ -1,35 +1,16 @@
-import { useState } from 'react';
+import usePayroll from '../../../../Hooks/usePayroll';
 
 const Payroll = () => {
-  const [payrollRequests, setPayrollRequests] = useState([
-    {
-      id: 1,
-      name: 'Alice',
-      salary: 5000,
-      month: 'Jan',
-      year: 2024,
-      paymentDate: null,
-      paid: false,
-    },
-    {
-      id: 2,
-      name: 'Charlie',
-      salary: 5500,
-      month: 'Jan',
-      year: 2024,
-      paymentDate: null,
-      paid: false,
-    },
-  ]);
+  const [payroll, refetch] = usePayroll();
 
-  const paySalary = id => {
-    const paymentDate = new Date().toISOString().split('T')[0];
-    setPayrollRequests(prev =>
-      prev.map(req =>
-        req.id === id ? { ...req, paid: true, paymentDate } : req
-      )
-    );
-  };
+  // const paySalary = id => {
+  //   const paymentDate = new Date().toISOString().split('T')[0];
+  //   setPayrollRequests(prev =>
+  //     prev.map(req =>
+  //       req.id === id ? { ...req, paid: true, paymentDate } : req
+  //     )
+  //   );
+  // };
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
@@ -61,10 +42,10 @@ const Payroll = () => {
             </tr>
           </thead>
           <tbody>
-            {payrollRequests.map(req => (
+            {payroll.map(req => (
               <tr key={req.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 text-sm text-gray-900 border-b">
-                  {req.name}
+                  {req.employees}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-900 border-b">
                   {req.salary}

@@ -1,84 +1,97 @@
 import React, { useState } from 'react';
+import useTasks from '../../../Hooks/useTasks';
 
 const Progress = () => {
-  const workRecords = [
-    {
-      id: 1,
-      employee: 'John Doe',
-      month: 'Jan',
-      year: 2024,
-      work: 'Completed Project A',
-    },
-    {
-      id: 2,
-      employee: 'Jane Smith',
-      month: 'Jan',
-      year: 2024,
-      work: 'Submitted Report',
-    },
-    {
-      id: 3,
-      employee: 'John Doe',
-      month: 'Feb',
-      year: 2024,
-      work: 'Finished Bug Fixes',
-    },
-  ];
-
+  const [tasks, refetch] = useTasks();
   const [filter, setFilter] = useState({ employee: '', month: '' });
 
-  const filteredRecords = workRecords.filter(record => {
+  const filteredRecords = tasks.filter(record => {
     const matchesEmployee = filter.employee
       ? record.employee === filter.employee
       : true;
-    const matchesMonth = filter.month ? record.month === filter.month : true;
+    const matchesMonth = filter.month
+      ? record.date.slice(0, 7) === filter.month
+      : true;
     return matchesEmployee && matchesMonth;
   });
+
+  const uniqueEmployees = [...new Set(tasks.map(task => task.employee))];
+  const uniqueMonths = [...new Set(tasks.map(task => task.date.slice(0, 7)))];
 
   return (
     <div>
       <h1>Progress Page</h1>
-      <div>
+
+      {/* Filter Options */}
+      <div className="flex gap-4 mb-4">
         <label>
           Employee:
           <select
             onChange={e => setFilter({ ...filter, employee: e.target.value })}
+            value={filter.employee}
           >
             <option value="">All</option>
-            <option value="John Doe">John Doe</option>
-            <option value="Jane Smith">Jane Smith</option>
+            {uniqueEmployees.map((employee, index) => (
+              <option key={index} value={employee}>
+                {employee}
+              </option>
+            ))}
           </select>
         </label>
         <label>
           Month:
           <select
             onChange={e => setFilter({ ...filter, month: e.target.value })}
+            value={filter.month}
           >
             <option value="">All</option>
-            <option value="Jan">Jan</option>
-            <option value="Feb">Feb</option>
+            {uniqueMonths.map((month, index) => (
+              <option key={index} value={month}>
+                {month}
+              </option>
+            ))}
           </select>
         </label>
       </div>
 
-      <table>
+      {/* Table */}
+      <table className="table-auto border-collapse border border-gray-300 w-full">
         <thead>
           <tr>
-            <th>Employee</th>
-            <th>Month</th>
-            <th>Year</th>
-            <th>Work</th>
+            <th className="border border-gray-300 px-4 py-2">Employee</th>
+            <th className="border border-gray-300 px-4 py-2">Date</th>
+            <th className="border border-gray-300 px-4 py-2">Task</th>
+            <th className="border border-gray-300 px-4 py-2">Hours</th>
           </tr>
         </thead>
         <tbody>
-          {filteredRecords.map(record => (
-            <tr key={record.id}>
-              <td>{record.employee}</td>
-              <td>{record.month}</td>
-              <td>{record.year}</td>
-              <td>{record.work}</td>
+          {filteredRecords.length > 0 ? (
+            filteredRecords.map(record => (
+              <tr key={record._id}>
+                <td className="border border-gray-300 px-4 py-2">
+                  {record.employee}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {record.date}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {record.tasks}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {record.hours}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan="4"
+                className="border border-gray-300 px-4 py-2 text-center"
+              >
+                No records found
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

@@ -1,40 +1,8 @@
 import React, { useState } from 'react';
+import usePayroll from '../../../Hooks/usePayroll';
 
 const PaymentHistory = () => {
-  // Demo data for the payment history
-  const demoData = [
-    {
-      id: 1,
-      month: 'January',
-      year: 2023,
-      amount: 1000,
-      transactionId: 'TXN001',
-    },
-    {
-      id: 2,
-      month: 'February',
-      year: 2023,
-      amount: 1050,
-      transactionId: 'TXN002',
-    },
-    {
-      id: 3,
-      month: 'March',
-      year: 2023,
-      amount: 1100,
-      transactionId: 'TXN003',
-    },
-    {
-      id: 4,
-      month: 'April',
-      year: 2023,
-      amount: 1150,
-      transactionId: 'TXN004',
-    },
-    { id: 5, month: 'May', year: 2023, amount: 1200, transactionId: 'TXN005' },
-    { id: 6, month: 'June', year: 2023, amount: 1250, transactionId: 'TXN006' },
-    { id: 7, month: 'July', year: 2023, amount: 1300, transactionId: 'TXN007' },
-  ];
+  const [payroll, refetch] = usePayroll();
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,10 +11,10 @@ const PaymentHistory = () => {
   // Calculate paginated data
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-  const currentData = demoData.slice(indexOfFirstRow, indexOfLastRow);
+  const currentData = payroll.slice(indexOfFirstRow, indexOfLastRow);
 
   // Handle next and previous pages
-  const totalPages = Math.ceil(demoData.length / rowsPerPage);
+  const totalPages = Math.ceil(payroll.length / rowsPerPage);
 
   const nextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -69,9 +37,9 @@ const PaymentHistory = () => {
         </thead>
         <tbody>
           {currentData.map(payment => (
-            <tr key={payment.id} className="text-center">
+            <tr key={payment._id} className="text-center">
               <td className="border px-4 py-2">{`${payment.month}, ${payment.year}`}</td>
-              <td className="border px-4 py-2">${payment.amount}</td>
+              <td className="border px-4 py-2">${payment.salary}</td>
               <td className="border px-4 py-2">{payment.transactionId}</td>
             </tr>
           ))}
@@ -79,7 +47,7 @@ const PaymentHistory = () => {
       </table>
 
       {/* Pagination Controls */}
-      {demoData.length > rowsPerPage && (
+      {payroll.length > rowsPerPage && (
         <div className="flex justify-between items-center mt-4">
           <button
             onClick={prevPage}

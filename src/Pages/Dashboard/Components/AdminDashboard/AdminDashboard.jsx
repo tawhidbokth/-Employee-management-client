@@ -1,127 +1,130 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const AdminDashboard = () => {
-  const [employees, setEmployees] = useState([
-    {
-      id: 1,
-      name: 'Alice',
-      designation: 'Engineer',
-      isHR: false,
-      fired: false,
-      salary: 5000,
-    },
-    {
-      id: 2,
-      name: 'Bob',
-      designation: 'Manager',
-      isHR: true,
-      fired: false,
-      salary: 7000,
-    },
-    {
-      id: 3,
-      name: 'Charlie',
-      designation: 'Developer',
-      isHR: false,
-      fired: false,
-      salary: 5500,
-    },
-  ]);
-
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
-  const fireEmployee = id => {
-    setEmployees(prev =>
-      prev.map(emp => (emp.id === id ? { ...emp, fired: true } : emp))
-    );
-    setShowModal(false);
+  useEffect(() => {
+    // Fetch all users
+    axios
+      .get('http://localhost:5000/users')
+      .then(response => setUsers(response.data));
+  }, []);
+
+  // Fire employee
+  const fireEmployee = async id => {
+    try {
+      await axios.put(`http://localhost:5000/users/${id}/role`, {
+        role: 'Fired',
+      });
+      setUsers(prev =>
+        prev.map(user => (user._id === id ? { ...user, role: 'Fired' } : user))
+      );
+      setShowModal(false);
+    } catch (error) {
+      console.error('Error firing employee:', error);
+    }
   };
 
-  const makeHR = id => {
-    setEmployees(prev =>
-      prev.map(emp => (emp.id === id ? { ...emp, isHR: true } : emp))
-    );
+  // Make HR
+  const makeHR = async id => {
+    try {
+      await axios.put(`http://localhost:5000/users/${id}/role`, { role: 'HR' });
+      setUsers(prev =>
+        prev.map(user => (user._id === id ? { ...user, role: 'HR' } : user))
+      );
+    } catch (error) {
+      console.error('Error updating role:', error);
+    }
   };
 
-  const adjustSalary = (id, newSalary) => {
-    setEmployees(prev =>
-      prev.map(emp => (emp.id === id ? { ...emp, salary: newSalary } : emp))
-    );
+  // Adjust Salary
+  const adjustSalary = async (id, newSalary) => {
+    try {
+      await axios.put(`http://localhost:5000/users/${id}/salary`, {
+        salary: newSalary,
+      });
+      setUsers(prev =>
+        prev.map(user =>
+          user._id === id ? { ...user, salary: newSalary } : user
+        )
+      );
+    } catch (error) {
+      console.error('Error adjusting salary:', error);
+    }
   };
 
   return (
     <div className="container mx-auto my-10 p-6 bg-gray-100 shadow-md rounded-lg">
       <h2 className="text-center text-2xl font-bold mb-6">Admin Dashboard</h2>
 
-      {/* Employee List */}
-      <div className="mb-8">
-        <h3 className="text-xl font-semibold mb-4">
-          All Employee List [Private - Admin Only]
-        </h3>
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse border border-gray-300">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="border border-gray-300 p-3">Name</th>
-                <th className="border border-gray-300 p-3">Designation</th>
-                <th className="border border-gray-300 p-3">Make HR</th>
-                <th className="border border-gray-300 p-3">Fire</th>
-                <th className="border border-gray-300 p-3">Adjust Salary</th>
-              </tr>
-            </thead>
-            <tbody>
-              {employees.map(emp => (
-                <tr key={emp.id} className="text-center">
-                  <td className="border border-gray-300 p-3">{emp.name}</td>
-                  <td className="border border-gray-300 p-3">
-                    {emp.designation}
-                  </td>
-                  <td className="border border-gray-300 p-3">
-                    {!emp.isHR && !emp.fired && (
-                      <button
-                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-                        onClick={() => makeHR(emp.id)}
-                      >
-                        Make HR
-                      </button>
-                    )}
-                  </td>
-                  <td className="border border-gray-300 p-3">
-                    {emp.fired ? (
-                      <span className="text-red-600 font-semibold">Fired</span>
-                    ) : (
-                      <button
-                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                        onClick={() => {
-                          setSelectedEmployee(emp);
-                          setShowModal(true);
-                        }}
-                      >
-                        Fire
-                      </button>
-                    )}
-                  </td>
-                  <td className="border border-gray-300 p-3">
+      {/* User List */}
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse border border-gray-300">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="border border-gray-300 p-3">Name</th>
+              <th className="border border-gray-300 p-3">Designation</th>
+              <th className="border border-gray-300 p-3">Role</th>
+              <th className="border border-gray-300 p-3">Make HR</th>
+              <th className="border border-gray-300 p-3">Fire</th>
+              <th className="border border-gray-300 p-3">Adjust Salary</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(user => (
+              <tr key={user._id} className="text-center">
+                <td className="border border-gray-300 p-3">{user.name}</td>
+                <td className="border border-gray-300 p-3">
+                  {user.designation}
+                </td>
+                <td className="border border-gray-300 p-3">{user.role}</td>
+                <td className="border border-gray-300 p-3">
+                  {!['HR', 'Fired'].includes(user.role) && (
                     <button
-                      className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+                      className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                      onClick={() => makeHR(user._id)}
+                    >
+                      Make HR
+                    </button>
+                  )}
+                </td>
+                <td className="border border-gray-300 p-3">
+                  {user.role === 'Fired' ? (
+                    <span className="text-red-600 font-semibold">Fired</span>
+                  ) : (
+                    <button
+                      className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                       onClick={() => {
-                        const newSalary = prompt(
-                          'Enter new salary:',
-                          emp.salary
-                        );
-                        if (newSalary)
-                          adjustSalary(emp.id, parseInt(newSalary, 10));
+                        setSelectedUser(user);
+                        setShowModal(true);
                       }}
                     >
-                      Adjust Salary
+                      Fire
                     </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  )}
+                </td>
+                <td className="border border-gray-300 p-3">
+                  <button
+                    className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+                    onClick={() => {
+                      const newSalary = prompt(
+                        'Enter new salary:',
+                        user.salary
+                      );
+                      if (newSalary)
+                        adjustSalary(user._id, parseInt(newSalary));
+                    }}
+                  >
+                    Adjust Salary
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       {/* Confirmation Modal */}
@@ -131,7 +134,7 @@ const AdminDashboard = () => {
             <h3 className="text-xl font-semibold mb-4">Confirm Firing</h3>
             <p className="mb-6">
               Are you sure you want to fire{' '}
-              <strong>{selectedEmployee?.name}</strong>?
+              <strong>{selectedUser?.name}</strong>?
             </p>
             <div className="flex justify-end gap-4">
               <button
@@ -142,7 +145,7 @@ const AdminDashboard = () => {
               </button>
               <button
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                onClick={() => fireEmployee(selectedEmployee?.id)}
+                onClick={() => fireEmployee(selectedUser?._id)}
               >
                 Confirm
               </button>

@@ -4,27 +4,24 @@ import {
   createColumnHelper,
   getCoreRowModel,
 } from '@tanstack/react-table';
-import { Dialog } from '@headlessui/react'; // Modal for payment
-import { Link, useNavigate } from 'react-router-dom';
+import { Dialog } from '@headlessui/react';
+import { Link } from 'react-router-dom';
 
 const EmployeeList = () => {
-  const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [paymentDetails, setPaymentDetails] = useState({ month: '', year: '' });
 
-  // Fetch users from the server
   useEffect(() => {
     const fetchEmployees = async () => {
-      const response = await fetch('http://localhost:5000/users'); // Server endpoint
+      const response = await fetch('http://localhost:5000/users');
       const data = await response.json();
       setEmployees(data);
     };
     fetchEmployees();
   }, []);
 
-  // Toggle the verification status of a user
   const toggleVerification = async id => {
     const updatedEmployees = employees.map(employee =>
       employee._id === id
@@ -33,7 +30,6 @@ const EmployeeList = () => {
     );
     setEmployees(updatedEmployees);
 
-    // Update the verification status on the server
     await fetch(`http://localhost:5000/users/${id}/verify`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -48,13 +44,33 @@ const EmployeeList = () => {
     setIsModalOpen(true);
   };
 
-  const handlePayment = () => {
-    console.log('Payment Requested:', {
-      ...selectedEmployee,
-      ...paymentDetails,
-    });
-    setIsModalOpen(false);
-    setPaymentDetails({ month: '', year: '' });
+  const handlePayment = async () => {
+    if (!selectedEmployee || !paymentDetails.month || !paymentDetails.year) {
+      alert('Please fill all fields.');
+      return;
+    }
+
+    const paymentRequest = {
+      employeeId: selectedEmployee._id,
+      salary: selectedEmployee.salary,
+      month: paymentDetails.month,
+      year: paymentDetails.year,
+    };
+
+    try {
+      await fetch('http://localhost:5000/payroll', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(paymentRequest),
+      });
+
+      alert('Payment request created successfully!');
+      setIsModalOpen(false);
+      setPaymentDetails({ month: '', year: '' });
+    } catch (error) {
+      console.error('Error creating payment request:', error);
+      alert('Failed to create payment request.');
+    }
   };
 
   const columnHelper = createColumnHelper();
@@ -82,7 +98,7 @@ const EmployeeList = () => {
       id: 'details',
       header: 'Details',
       cell: info => (
-        <Link to={`/dashboard/${info.row.original._id}`}>
+        <Link to={`/dashboard/slug/${info.row.original._id}`}>
           <button className="px-3 py-1 text-white rounded bg-blue-500 hover:bg-blue-600">
             Details
           </button>
@@ -145,6 +161,60 @@ const EmployeeList = () => {
           ))}
         </tbody>
       </table>
+
+      {isModalOpen && (
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto"
+          open={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        >
+          <div className="flex items-center justify-center min-h-screen px-4">
+            <Dialog.Panel className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+              <Dialog.Title className="text-lg font-medium">
+                Payment for {selectedEmployee.name}
+              </Dialog.Title>
+              <div className="mt-4">
+                <p>
+                  <strong>Salary:</strong> ${selectedEmployee.salary}
+                </p>
+                <input
+                  type="text"
+                  placeholder="Month"
+                  value={paymentDetails.month}
+                  onChange={e =>
+                    setPaymentDetails({
+                      ...paymentDetails,
+                      month: e.target.value,
+                    })
+                  }
+                  className="w-full mt-2 p-2 border rounded"
+                />
+                <input
+                  type="text"
+                  placeholder="Year"
+                  value={paymentDetails.year}
+                  onChange={e =>
+                    setPaymentDetails({
+                      ...paymentDetails,
+                      year: e.target.value,
+                    })
+                  }
+                  className="w-full mt-2 p-2 border rounded"
+                />
+              </div>
+              <div className="mt-6 flex justify-end">
+                <button
+                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  onClick={handlePayment}
+                >
+                  Pay
+                </button>
+              </div>
+            </Dialog.Panel>
+          </div>
+        </Dialog>
+      )}
     </div>
   );
 };

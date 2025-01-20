@@ -9,12 +9,12 @@ import PaymentHistory from '../Pages/Dashboard/Components/PaymentHistory';
 import EmployeeList from '../Pages/Dashboard/Components/EmployeeList';
 import EmployeeDetails from '../Pages/Dashboard/Components/EmployeeDetails';
 import Progress from '../Pages/Dashboard/Components/Progress';
-import AdminDashboard from '../Pages/Dashboard/Components/AdminDashboard/AdminDashboard';
 import Payroll from '../Pages/Dashboard/Components/AdminDashboard/Payroll';
 import Register from '../Auth/Register';
 import Login from '../Auth/Login';
 import UpdateTasks from '../Pages/Dashboard/Components/UpdateTasks';
 import WellcomePage from '../Pages/Dashboard/WellcomePage';
+import AllEmployee from '../Pages/Dashboard/Components/AdminDashboard/AllEmployee';
 
 const router = createBrowserRouter([
   {
@@ -83,10 +83,11 @@ const router = createBrowserRouter([
       {
         path: 'progress',
         element: <Progress></Progress>,
+        loader: () => fetch('http://localhost:5000/tasks'),
       },
       {
         path: 'allemployee',
-        element: <AdminDashboard></AdminDashboard>,
+        element: <AllEmployee></AllEmployee>,
       },
 
       {

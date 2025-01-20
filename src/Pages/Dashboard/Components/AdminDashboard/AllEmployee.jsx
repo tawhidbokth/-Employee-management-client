@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const AdminDashboard = () => {
+const AllEmployee = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -58,7 +58,9 @@ const AdminDashboard = () => {
 
   return (
     <div className="container mx-auto my-10 p-6 bg-gray-100 shadow-md rounded-lg">
-      <h2 className="text-center text-2xl font-bold mb-6">Admin Dashboard</h2>
+      <h2 className="text-center text-4xl text-yellow-700 font-bold  mb-6">
+        All Employee
+      </h2>
 
       {/* User List */}
       <div className="overflow-x-auto">
@@ -157,4 +159,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default AllEmployee;

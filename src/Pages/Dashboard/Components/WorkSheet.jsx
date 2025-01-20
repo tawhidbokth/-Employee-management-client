@@ -16,7 +16,7 @@ const WorkSheet = () => {
     // Add user email and name to the initialData object
     const finalData = {
       ...initialData,
-      email: user?.email || '', // Use user email if available
+      employee_email: user?.email || '', // Use user email if available
       employee: user?.displayName || '', // Use user name if available
     };
 
@@ -81,8 +81,10 @@ const WorkSheet = () => {
   };
 
   return (
-    <div className="p-6 mt-10">
-      <h1 className="text-2xl font-bold mb-4 text-center">Work Sheet</h1>
+    <div className="p-6 bg-gray-100 shadow-md rounded-lg">
+      <h1 className="text-4xl font-bold text-yellow-700 mb-4 text-center">
+        Work Sheet
+      </h1>
       <div className="max-w-full mx-auto my-8 p-6 bg-white shadow-md rounded-md">
         <form
           onSubmit={handleSubmit}
@@ -161,7 +163,6 @@ const WorkSheet = () => {
           ))}
         </tbody>
       </table>
-      ,
     </div>
   );
 };

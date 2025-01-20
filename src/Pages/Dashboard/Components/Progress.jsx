@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import useTasks from '../../../Hooks/useTasks';
+import { useLoaderData } from 'react-router-dom';
 
 const Progress = () => {
-  const [tasks, refetch] = useTasks();
+  const tasks = useLoaderData();
   const [filter, setFilter] = useState({ employee: '', month: '' });
 
   const filteredRecords = tasks.filter(record => {
@@ -19,11 +20,13 @@ const Progress = () => {
   const uniqueMonths = [...new Set(tasks.map(task => task.date.slice(0, 7)))];
 
   return (
-    <div>
-      <h1>Progress Page</h1>
+    <div className="lg:w-11/12 mx-auto bg-gray-100 shadow-md rounded-lg p-10">
+      <h1 className="text-4xl text-yellow-600 text-center font-bold mb-14">
+        Progress Page
+      </h1>
 
       {/* Filter Options */}
-      <div className="flex gap-4 mb-4">
+      <div className="flex gap-4 mb-4 ">
         <label>
           Employee:
           <select

@@ -25,9 +25,11 @@ const PaymentHistory = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Payment History</h1>
-      <table className="w-full border border-gray-300 rounded-md">
+    <div className="max-w-4xl mx-auto p-4 bg-gray-100 shadow-md rounded-lg">
+      <h1 className="text-2xl lg:text-4xl font-bold mb-4 text-center text-yellow-600">
+        Payment History
+      </h1>
+      <table className="w-full border ">
         <thead className="bg-gray-100">
           <tr>
             <th className="border px-4 py-2">Month, Year</th>

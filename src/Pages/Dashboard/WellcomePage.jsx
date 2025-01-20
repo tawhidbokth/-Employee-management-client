@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const WellcomePage = () => {
   return (
@@ -12,12 +13,11 @@ const WellcomePage = () => {
             Explore all your information and manage your settings easily.
           </p>
           <div class="flex justify-center">
-            <a
-              href="#settings"
-              class="bg-white text-blue-500 hover:bg-gray-100 hover:text-blue-700 font-semibold py-2 px-6 rounded-lg transition duration-300"
-            >
-              Go to Settings
-            </a>
+            <Link to={'/'}>
+              <a class="bg-white text-blue-500 hover:bg-gray-100 hover:text-blue-700 font-semibold py-2 px-6 rounded-lg transition duration-300">
+                Go to Home Page
+              </a>
+            </Link>
           </div>
         </div>
       </section>

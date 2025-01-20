@@ -7,7 +7,7 @@ import {
 import { Dialog } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Provider/AuthProvider';
-
+import { toast, ToastContainer } from 'react-toastify';
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,7 +17,7 @@ const EmployeeList = () => {
   const transactionId = `TXN${Math.floor(Math.random() * 1000000)}`;
   useEffect(() => {
     const fetchEmployees = async () => {
-      const response = await fetch('http://localhost:5000/users');
+      const response = await fetch(`http://localhost:5000/users?role=Employee`);
       const data = await response.json();
       setEmployees(data);
     };
@@ -69,12 +69,19 @@ const EmployeeList = () => {
         body: JSON.stringify(paymentRequest),
       });
 
-      alert('Payment request created successfully!');
+      toast.success('payment request Successful!', {
+        position: 'top-center',
+        autoClose: 2000,
+      });
+
       setIsModalOpen(false);
       setPaymentDetails({ month: '', year: '' });
     } catch (error) {
       console.error('Error creating payment request:', error);
-      alert('Failed to create payment request.');
+      toast.success('payment request Faild!', {
+        position: 'top-center',
+        autoClose: 2000,
+      });
     }
   };
 
@@ -138,8 +145,10 @@ const EmployeeList = () => {
   });
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Employee List</h1>
+    <div className="max-w-5xl mx-auto p-6 bg-gray-100 shadow-md rounded-lg">
+      <h1 className="text-4xl text-yellow-700 text-center font-bold mb-4">
+        Employee List
+      </h1>
       <table className="w-full border border-gray-300 rounded-md">
         <thead className="bg-gray-100">
           {table.getHeaderGroups().map(headerGroup => (
@@ -220,6 +229,8 @@ const EmployeeList = () => {
           </div>
         </Dialog>
       )}
+
+      <ToastContainer />
     </div>
   );
 };

@@ -1,12 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxsioSequre from './useAxsioSequre';
+import { useContext } from 'react';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const useTasks = () => {
+  const { user } = useContext(AuthContext);
   const axiosSecure = useAxsioSequre();
   const { refetch, data: tasks = [] } = useQuery({
-    queryKey: ['cart'],
+    queryKey: ['tasks'],
     queryFn: async () => {
-      const res = await axiosSecure.get('/tasks');
+      const res = await axiosSecure.get(`/tasks?email=${user.email}`);
       return res.data;
     },
   });

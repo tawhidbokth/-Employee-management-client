@@ -156,6 +156,30 @@ const Sidebar = () => {
                 <span className="flex-1 ms-3 whitespace-nowrap">Payroll</span>
               </a>
             </Link>
+
+            <Link to={'/dashboard/inbox'}>
+              <a className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-inbox"
+                  width="24"
+                  height="24"
+                >
+                  <path d="M21 12v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <path d="M19 4H5a2 2 0 0 0-2 2v6h18V6a2 2 0 0 0-2-2z"></path>
+                  <path d="M12 16v6"></path>
+                  <path d="M9 19l3 3 3-3"></path>
+                </svg>
+
+                <span className="flex-1 ms-3 whitespace-nowrap">Inbox</span>
+              </a>
+            </Link>
           </ul>
         </div>
       </aside>

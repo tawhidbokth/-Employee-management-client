@@ -15,6 +15,8 @@ import Login from '../Auth/Login';
 import UpdateTasks from '../Pages/Dashboard/Components/UpdateTasks';
 import WellcomePage from '../Pages/Dashboard/WellcomePage';
 import AllEmployee from '../Pages/Dashboard/Components/AdminDashboard/AllEmployee';
+import InboxAdmin from '../Pages/Dashboard/Components/AdminDashboard/InboxAdmin';
+import PrivateRoute from './PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -44,7 +46,11 @@ const router = createBrowserRouter([
 
   {
     path: 'dashboard',
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
 
     children: [
       {
@@ -93,6 +99,11 @@ const router = createBrowserRouter([
       {
         path: 'payroll',
         element: <Payroll></Payroll>,
+      },
+      {
+        path: 'inbox',
+        element: <InboxAdmin></InboxAdmin>,
+        loader: () => fetch('http://localhost:5000/contact'),
       },
     ],
   },

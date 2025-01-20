@@ -1,4 +1,34 @@
+import Swal from 'sweetalert2';
+
 const ContactUs = () => {
+  const handleSubmit = e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const initialData = Object.fromEntries(formData.entries());
+    console.log(initialData);
+
+    fetch('http://localhost:5000/contact', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(initialData),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.insertedId) {
+          Swal.fire({
+            position: 'top-center',
+            icon: 'success',
+            title: 'Submit Your Massage.',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          e.target.reset();
+        }
+      });
+  };
+
   return (
     <div className="py-16 bg-gray-50">
       <div className="container mx-auto px-6">
@@ -26,7 +56,7 @@ const ContactUs = () => {
           </h3>
 
           {/* Form */}
-          <form action="#" method="POST">
+          <form onSubmit={handleSubmit}>
             {/* Email Input */}
             <div className="mb-6">
               <label

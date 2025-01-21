@@ -1,16 +1,35 @@
+import { useState } from 'react';
 import usePayroll from '../../../../Hooks/usePayroll';
 
 const Payroll = () => {
-  const [payroll, refetch] = usePayroll();
+  const [payroll] = usePayroll(); // Assume `payroll` contains the entire dataset
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 5;
+
+  const totalPages = Math.ceil(payroll.length / rowsPerPage);
+  const currentData = payroll.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevious = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
   return (
-    <div className="p-6   bg-gray-100 shadow-md rounded-lg">
+    <div className="p-6 bg-gray-100 shadow-md rounded-lg">
       <h3 className="text-4xl text-center text-yellow-700 font-semibold mb-6">
-        Payment Requst
+        Payment Request
       </h3>
       <div className="overflow-x-auto">
         <table className="min-w-full border border-gray-300 bg-white rounded-lg shadow">
           <thead className="bg-blue-100">
             <tr>
+              {/* Table Headers */}
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-700 border-b">
                 Name
               </th>
@@ -32,7 +51,7 @@ const Payroll = () => {
             </tr>
           </thead>
           <tbody>
-            {payroll.map(req => (
+            {currentData.map(req => (
               <tr key={req.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 text-sm text-gray-900 border-b">
                   {req.employees}
@@ -65,6 +84,30 @@ const Payroll = () => {
             ))}
           </tbody>
         </table>
+        {/* Pagination Controls */}
+        <div className="flex justify-center items-center mt-4 space-x-4">
+          <button
+            onClick={handlePrevious}
+            disabled={currentPage === 1}
+            className={`px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 ${
+              currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+          >
+            Previous
+          </button>
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={handleNext}
+            disabled={currentPage === totalPages}
+            className={`px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 ${
+              currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

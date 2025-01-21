@@ -17,6 +17,7 @@ import WellcomePage from '../Pages/Dashboard/WellcomePage';
 import AllEmployee from '../Pages/Dashboard/Components/AdminDashboard/AllEmployee';
 import InboxAdmin from '../Pages/Dashboard/Components/AdminDashboard/InboxAdmin';
 import PrivateRoute from './PrivateRoute';
+import Policy from '../Components/Policy';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,11 @@ const router = createBrowserRouter([
             <Dashboard></Dashboard>{' '}
           </PrivateRoute>
         ),
+      },
+
+      {
+        path: 'policy',
+        element: <Policy></Policy>,
       },
       {
         path: '/register',

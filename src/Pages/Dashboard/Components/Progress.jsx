@@ -20,7 +20,7 @@ const Progress = () => {
   const uniqueMonths = [...new Set(tasks.map(task => task.date.slice(0, 7)))];
 
   return (
-    <div className="lg:w-11/12 mx-auto bg-gray-100 shadow-md rounded-lg p-10">
+    <div className="lg:w-11/12 overflow-x-auto h-[600px] mx-auto bg-gray-100 shadow-md rounded-lg p-10">
       <h1 className="text-4xl text-yellow-600 text-center font-bold mb-14">
         Progress Page
       </h1>
@@ -58,7 +58,7 @@ const Progress = () => {
       </div>
 
       {/* Table */}
-      <table className="table-auto border-collapse border border-gray-300 w-full">
+      <table className="table-auto  border-collapse border border-gray-300 w-full">
         <thead>
           <tr>
             <th className="border border-gray-300 px-4 py-2">Employee</th>

@@ -99,7 +99,7 @@ const Login = () => {
               </Link>
             </p>
           </div>
-          <div className="divider my-6">OR</div>
+          <hr />
           <SocialLogin />
         </div>
       </div>

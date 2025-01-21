@@ -145,7 +145,7 @@ const EmployeeList = () => {
   });
 
   return (
-    <div className="max-w-5xl mx-auto p-6 bg-gray-100 shadow-md rounded-lg">
+    <div className="max-w-5xl mx-auto overflow-x-auto h-[600px] p-6 bg-gray-100 shadow-md rounded-lg">
       <h1 className="text-4xl text-yellow-700 text-center font-bold mb-4">
         Employee List
       </h1>

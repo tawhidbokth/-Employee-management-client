@@ -123,8 +123,8 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full p-6 bg-white shadow-md rounded-lg">
+    <div className="min-h-screen  bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center">
+      <div className="max-w-md w-full p-6 bg-white my-24 shadow-md rounded-lg">
         <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">
           Register Now
         </h1>
@@ -237,6 +237,7 @@ const Register = () => {
             Login here
           </Link>
         </p>
+        <hr />
         <SocialLogin></SocialLogin>
         <ToastContainer />
       </div>

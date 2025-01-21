@@ -2,9 +2,11 @@ const AnnouncementSection = () => {
   return (
     <section className="py-16 bg-gray-900">
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-extrabold text-center mb-12 text-white">
-          Announcement & Important Notices
-        </h2>
+        <div className="bg-slate-700 w-1/2 mx-auto p-4 rounded-xl mb-8">
+          <h2 className="text-4xl font-extrabold text-center  text-white">
+            Announcement & Important Notices
+          </h2>
+        </div>
 
         {/* Grid for Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-10">

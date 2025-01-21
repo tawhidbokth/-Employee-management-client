@@ -1,22 +1,24 @@
-import { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaGoogle } from 'react-icons/fa';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { AuthContext } from '../Provider/AuthProvider';
+import SocialLogin from '../Components/SocialLogin';
+import { toast } from 'react-toastify';
 
 const Login = () => {
+  const { signInUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { signInUser, signInWithGoogle } = useContext(AuthContext);
-  const [email, setEmail] = useState('');
+  const location = useLocation();
 
-  const handlelogin = e => {
-    e.preventDefault();
-    const emailInput = e.target.email.value;
-    const password = e.target.password.value;
-    setEmail(emailInput);
+  const from = location.state?.from?.pathname || '/';
 
-    signInUser(emailInput, password)
+  const handleLogin = event => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signInUser(email, password)
       .then(result => {
         toast.success('Login Successful!', {
           position: 'top-center',
@@ -24,7 +26,7 @@ const Login = () => {
         });
 
         setTimeout(() => {
-          navigate('/');
+          navigate(from);
         }, 2000);
       })
       .catch(error => {
@@ -36,94 +38,71 @@ const Login = () => {
       });
   };
 
-  const handleGoogleSignIn = () => {
-    signInWithGoogle()
-      .then(result => {
-        toast.success('Google Login Successful!', {
-          position: 'top-center',
-          autoClose: 2000,
-        });
-
-        setTimeout(() => {
-          navigate('/');
-          toast.dismiss();
-        }, 2000);
-      })
-      .catch(error => {
-        const errorMessage = error?.message || 'Google Login Failed!';
-        toast.error(errorMessage, {
-          position: 'top-center',
-          autoClose: 2000,
-        });
-      });
-  };
-
   return (
-    <div>
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="max-w-md w-full p-6 bg-white shadow-md rounded-lg">
-          <div className="text-center lg:text-left">
-            <h1 className="text-3xl font-bold">Login now!</h1>
-          </div>
-          <div className="mb-4">
-            <form onSubmit={handlelogin} className="card-body">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="email"
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300"
-                  required
-                />
+    <div className="min-h-screen bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden">
+        <div className="p-6">
+          <h1 className="text-2xl font-bold text-center text-gray-700">
+            Welcome Back!
+          </h1>
+          <p className="mt-2 text-sm text-gray-500 text-center">
+            Sign in to access your account
+          </p>
+          <form onSubmit={handleLogin} className="mt-6">
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-600">
+                Email Address
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-600">
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              />
+              <div className="text-right mt-1">
+                <Link
+                  to="#"
+                  className="text-sm text-indigo-500 hover:underline"
+                >
+                  Forgot Password?
+                </Link>
               </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300"
-                  required
-                />
-                <label className="label">
-                  <Link
-                    to="/forgot-password"
-                    state={{ email }}
-                    className="label-text-alt link link-hover text-blue-700"
-                  >
-                    Forgot password?
-                  </Link>
-                </label>
-              </div>
-              <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
-              </div>
-            </form>
-            <p className="ml-4 mb-4">
-              New to this website? Please{' '}
-              <Link to="/register">
-                <span className="text-blue-700 font-bold">Register</span>
+            </div>
+            <div className="mt-6">
+              <button
+                type="submit"
+                className="w-full px-4 py-2 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+          <div className="mt-6 text-center">
+            <p className="text-sm">
+              New here?{' '}
+              <Link
+                to="/register"
+                className="text-indigo-500 font-semibold hover:underline"
+              >
+                Create an account
               </Link>
             </p>
-            <p className="border">
-              <button
-                onClick={handleGoogleSignIn}
-                className="btn btn-ghost w-full"
-              >
-                <FaGoogle />
-                <span>Login with Google</span>
-              </button>
-            </p>
           </div>
+          <div className="divider my-6">OR</div>
+          <SocialLogin />
         </div>
       </div>
-
-      <ToastContainer />
     </div>
   );
 };

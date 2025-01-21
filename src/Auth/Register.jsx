@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../Provider/AuthProvider';
+import SocialLogin from '../Components/SocialLogin';
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
@@ -236,6 +237,7 @@ const Register = () => {
             Login here
           </Link>
         </p>
+        <SocialLogin></SocialLogin>
         <ToastContainer />
       </div>
     </div>

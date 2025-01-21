@@ -30,9 +30,9 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="py-16 bg-gray-50">
+    <div className="py-16 bg-gray-900 mt-20">
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-extrabold text-center mb-12 text-gray-800">
+        <h2 className="text-4xl font-extrabold text-center mb-12 text-gray-100">
           Contact Us
         </h2>
 
@@ -41,10 +41,10 @@ const ContactUs = () => {
           <h3 className="text-2xl font-semibold text-indigo-600 mb-4">
             Our Address
           </h3>
-          <p className="text-gray-700 text-lg">
+          <p className="text-gray-100 text-lg">
             123 Company Street, Business City, 12345, Country
           </p>
-          <p className="text-gray-500 text-md mt-2">
+          <p className="text-gray-100 text-md mt-2">
             You can also reach us by email or the contact form below.
           </p>
         </div>

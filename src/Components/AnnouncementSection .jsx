@@ -1,8 +1,8 @@
 const AnnouncementSection = () => {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-gray-900">
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-extrabold text-center mb-12 text-gray-800">
+        <h2 className="text-4xl font-extrabold text-center mb-12 text-white">
           Announcement & Important Notices
         </h2>
 

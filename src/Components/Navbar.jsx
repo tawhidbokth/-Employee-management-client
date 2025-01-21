@@ -54,7 +54,7 @@ const Navbar = () => {
   );
 
   return (
-    <header className=" text-black  w-full">
+    <header className="bg-gray-900 text-white fixed z-40  w-full">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
         {/* Logo */}
         <div className="flex items-center">

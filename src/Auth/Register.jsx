@@ -35,10 +35,8 @@ const Register = () => {
     // Upload photo to imgBB
     const formData = new FormData();
     formData.append('image', photoFile);
-
-    const imgbbApiKey = 'd063823825cba3084bfba5df55b8c9a8'; // Replace with your imgBB API key
+    const imgbbApiKey = import.meta.env.VITE_IMGBB_API_KEY;
     const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgbbApiKey}`;
-
     try {
       const imgUploadResponse = await fetch(imgbbUrl, {
         method: 'POST',

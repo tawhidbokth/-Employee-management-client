@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import useAxsioSequre from '../../../../Hooks/useAxsioSequre';
 
 const AllEmployee = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
-
+  const axsiosSequre = useAxsioSequre();
   useEffect(() => {
     // Fetch all users
-    axios
-      .get('http://localhost:5000/users')
-      .then(response => setUsers(response.data));
+    axsiosSequre.get('/users').then(response => setUsers(response.data));
   }, []);
 
   // Fire employee
   const fireEmployee = async id => {
     try {
-      await axios.put(`http://localhost:5000/users/${id}/role`, {
+      await axsiosSequre.put(`users/${id}/role`, {
         role: 'Fired',
       });
       setUsers(prev =>
@@ -31,7 +30,9 @@ const AllEmployee = () => {
   // Make HR
   const makeHR = async id => {
     try {
-      await axios.put(`http://localhost:5000/users/${id}/role`, { role: 'HR' });
+      await axsiosSequre.put(`/users/${id}/role`, {
+        role: 'HR',
+      });
       setUsers(prev =>
         prev.map(user => (user._id === id ? { ...user, role: 'HR' } : user))
       );
@@ -43,7 +44,7 @@ const AllEmployee = () => {
   // Adjust Salary
   const adjustSalary = async (id, newSalary) => {
     try {
-      await axios.put(`http://localhost:5000/users/${id}/salary`, {
+      await axsiosSequre.put(`users/${id}/salary`, {
         salary: newSalary,
       });
       setUsers(prev =>

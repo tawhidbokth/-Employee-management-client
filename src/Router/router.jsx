@@ -18,6 +18,7 @@ import AllEmployee from '../Pages/Dashboard/Components/AdminDashboard/AllEmploye
 import InboxAdmin from '../Pages/Dashboard/Components/AdminDashboard/InboxAdmin';
 import PrivateRoute from './PrivateRoute';
 import Policy from '../Components/Policy';
+import AdminRoute from './AdminRoute';
 
 const router = createBrowserRouter([
   {
@@ -33,15 +34,6 @@ const router = createBrowserRouter([
       {
         path: 'contac',
         element: <ContactUs></ContactUs>,
-      },
-      {
-        path: '/dashboard',
-        element: (
-          <PrivateRoute>
-            {' '}
-            <Dashboard></Dashboard>{' '}
-          </PrivateRoute>
-        ),
       },
 
       {
@@ -104,16 +96,28 @@ const router = createBrowserRouter([
       },
       {
         path: 'allemployee',
-        element: <AllEmployee></AllEmployee>,
+        element: (
+          <AdminRoute>
+            <AllEmployee></AllEmployee>,
+          </AdminRoute>
+        ),
       },
 
       {
         path: 'payroll',
-        element: <Payroll></Payroll>,
+        element: (
+          <AdminRoute>
+            <Payroll></Payroll>,
+          </AdminRoute>
+        ),
       },
       {
         path: 'inbox',
-        element: <InboxAdmin></InboxAdmin>,
+        element: (
+          <AdminRoute>
+            <InboxAdmin></InboxAdmin>
+          </AdminRoute>
+        ),
         loader: () => fetch('http://localhost:5000/contact'),
       },
     ],

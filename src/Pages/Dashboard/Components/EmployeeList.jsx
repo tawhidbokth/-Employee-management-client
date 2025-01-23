@@ -8,44 +8,64 @@ import { Dialog } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Provider/AuthProvider';
 import { toast, ToastContainer } from 'react-toastify';
+import useAxsioSequre from '../../../Hooks/useAxsioSequre';
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [paymentDetails, setPaymentDetails] = useState({ month: '', year: '' });
   const { user } = useContext(AuthContext);
-  const transactionId = `TXN${Math.floor(Math.random() * 1000000)}`;
+  const axiosSequre = useAxsioSequre();
   useEffect(() => {
     const fetchEmployees = async () => {
-      const response = await fetch(`http://localhost:5000/users?role=Employee`);
-      const data = await response.json();
-      setEmployees(data);
+      try {
+        const { data } = await axiosSequre.get('/users?role=Employee');
+        setEmployees(data);
+      } catch (error) {
+        console.error('Error fetching employees:', error);
+      }
     };
     fetchEmployees();
-  }, []);
+  }, [axiosSequre]);
 
+  // Toggle Verification
   const toggleVerification = async id => {
-    const updatedEmployees = employees.map(employee =>
-      employee._id === id
-        ? { ...employee, isVerified: !employee.isVerified }
-        : employee
-    );
-    setEmployees(updatedEmployees);
+    try {
+      const employee = employees.find(emp => emp._id === id);
+      const updatedVerificationStatus = !employee.isVerified;
 
-    await fetch(`http://localhost:5000/users/${id}/verify`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        isVerified: !employees.find(emp => emp._id === id).isVerified,
-      }),
-    });
+      await axiosSequre.put(`/users/${id}/verify`, {
+        isVerified: updatedVerificationStatus,
+      });
+
+      setEmployees(prevEmployees =>
+        prevEmployees.map(emp =>
+          emp._id === id
+            ? { ...emp, isVerified: updatedVerificationStatus }
+            : emp
+        )
+      );
+
+      toast.success(`Employee verification status updated!`, {
+        position: 'top-center',
+        autoClose: 2000,
+      });
+    } catch (error) {
+      console.error('Error toggling verification:', error);
+      toast.error('Failed to update verification status.', {
+        position: 'top-center',
+        autoClose: 2000,
+      });
+    }
   };
 
+  // Open Payment Modal
   const openPaymentModal = employee => {
     setSelectedEmployee(employee);
     setIsModalOpen(true);
   };
 
+  // Handle Payment
   const handlePayment = async () => {
     if (!selectedEmployee || !paymentDetails.month || !paymentDetails.year) {
       alert('Please fill all fields.');
@@ -59,17 +79,12 @@ const EmployeeList = () => {
       salary: selectedEmployee.salary,
       month: paymentDetails.month,
       year: paymentDetails.year,
-      transactionId: transactionId,
     };
 
     try {
-      await fetch('http://localhost:5000/payroll', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(paymentRequest),
-      });
+      await axiosSequre.post('/payroll', paymentRequest);
 
-      toast.success('payment request Successful!', {
+      toast.success('Payment request successful!', {
         position: 'top-center',
         autoClose: 2000,
       });
@@ -78,13 +93,12 @@ const EmployeeList = () => {
       setPaymentDetails({ month: '', year: '' });
     } catch (error) {
       console.error('Error creating payment request:', error);
-      toast.success('payment request Faild!', {
+      toast.error('Payment request failed!', {
         position: 'top-center',
         autoClose: 2000,
       });
     }
   };
-
   const columnHelper = createColumnHelper();
   const columns = [
     columnHelper.accessor('name', { header: 'Name' }),

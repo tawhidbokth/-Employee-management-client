@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import useAxsioSequre from '../../../../Hooks/useAxsioSequre';
 
 const InboxAdmin = () => {
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const axiosSequre = useAxsioSequre();
 
-  const messages = useLoaderData();
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const { data } = await axiosSequre.get('/contact');
+        setMessages(data);
+      } catch (error) {
+        console.error('Error fetching employees:', error);
+      }
+    };
+    fetchEmployees();
+  }, [axiosSequre]);
 
   // Function to handle View button click
   const handleViewMessage = message => {

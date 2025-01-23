@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, } from 'react';
+
 import useAxsioSequre from '../../../../Hooks/useAxsioSequre';
+import useUsers from '../../../../Hooks/useUsers';
+import Swal from 'sweetalert2';
 
 const AllEmployee = () => {
-  const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const axsiosSequre = useAxsioSequre();
-  useEffect(() => {
-    // Fetch all users
-    axsiosSequre.get('/users').then(response => setUsers(response.data));
-  }, []);
+  const [users, refetch] = useUsers();
 
   // Fire employee
   const fireEmployee = async id => {
@@ -18,12 +16,12 @@ const AllEmployee = () => {
       await axsiosSequre.put(`users/${id}/role`, {
         role: 'Fired',
       });
-      setUsers(prev =>
-        prev.map(user => (user._id === id ? { ...user, role: 'Fired' } : user))
-      );
+      await refetch(); // নতুন ডাটা আনবে
       setShowModal(false);
+      Swal.fire('Success!', 'Employee has been fired!', 'success'); // Alert দেখাবে
     } catch (error) {
       console.error('Error firing employee:', error);
+      Swal.fire('Error!', 'Something went wrong!', 'error'); // Error alert দেখাবে
     }
   };
 
@@ -33,11 +31,11 @@ const AllEmployee = () => {
       await axsiosSequre.put(`/users/${id}/role`, {
         role: 'HR',
       });
-      setUsers(prev =>
-        prev.map(user => (user._id === id ? { ...user, role: 'HR' } : user))
-      );
+      await refetch(); // নতুন ডাটা আনবে
+      Swal.fire('Success!', 'Role updated to HR!', 'success'); // Alert দেখাবে
     } catch (error) {
       console.error('Error updating role:', error);
+      Swal.fire('Error!', 'Failed to update role!', 'error'); // Error alert দেখাবে
     }
   };
 
@@ -47,13 +45,11 @@ const AllEmployee = () => {
       await axsiosSequre.put(`users/${id}/salary`, {
         salary: newSalary,
       });
-      setUsers(prev =>
-        prev.map(user =>
-          user._id === id ? { ...user, salary: newSalary } : user
-        )
-      );
+      await refetch(); // নতুন ডাটা আনবে
+      Swal.fire('Success!', 'Salary adjusted successfully!', 'success'); // Alert দেখাবে
     } catch (error) {
       console.error('Error adjusting salary:', error);
+      Swal.fire('Error!', 'Failed to adjust salary!', 'error'); // Error alert দেখাবে
     }
   };
 

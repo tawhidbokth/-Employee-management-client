@@ -19,6 +19,7 @@ import InboxAdmin from '../Pages/Dashboard/Components/AdminDashboard/InboxAdmin'
 import PrivateRoute from './PrivateRoute';
 import Policy from '../Components/Policy';
 import AdminRoute from './AdminRoute';
+import HrRoute from './HrRoute';
 
 const router = createBrowserRouter([
   {
@@ -79,20 +80,27 @@ const router = createBrowserRouter([
       },
 
       {
-        path: 'employlist',
-        element: <EmployeeList></EmployeeList>,
-      },
-
-      {
         path: 'slug',
         element: <EmployeeDetails></EmployeeDetails>,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/payroll/${params.id}`),
       },
+
+      {
+        path: 'employlist',
+        element: (
+          <HrRoute>
+            <EmployeeList></EmployeeList>,
+          </HrRoute>
+        ),
+      },
       {
         path: 'progress',
-        element: <Progress></Progress>,
-        loader: () => fetch('http://localhost:5000/tasks'),
+        element: (
+          <HrRoute>
+            <Progress></Progress>,
+          </HrRoute>
+        ),
       },
       {
         path: 'allemployee',
@@ -118,7 +126,6 @@ const router = createBrowserRouter([
             <InboxAdmin></InboxAdmin>
           </AdminRoute>
         ),
-        loader: () => fetch('http://localhost:5000/contact'),
       },
     ],
   },

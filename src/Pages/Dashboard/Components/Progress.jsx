@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
-import useTasks from '../../../Hooks/useTasks';
-import { useLoaderData } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import useAxsioSequre from '../../../Hooks/useAxsioSequre';
 
 const Progress = () => {
-  const tasks = useLoaderData();
   const [filter, setFilter] = useState({ employee: '', month: '' });
+  const [tasks, setTasks] = useState([]);
+  const axiosSequre = useAxsioSequre();
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const { data } = await axiosSequre.get('/tasks');
+        setTasks(data);
+      } catch (error) {
+        console.error('Error fetching employees:', error);
+      }
+    };
+    fetchTasks();
+  }, [axiosSequre]);
 
   const filteredRecords = tasks.filter(record => {
     const matchesEmployee = filter.employee

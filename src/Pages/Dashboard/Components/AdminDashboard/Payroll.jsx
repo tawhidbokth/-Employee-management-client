@@ -16,6 +16,8 @@ const Payroll = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
+  console.log('data corent', currentData);
+
   const handlePrevious = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };

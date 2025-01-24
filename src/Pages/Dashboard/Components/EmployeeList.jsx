@@ -27,7 +27,7 @@ const EmployeeList = () => {
     };
     fetchEmployees();
   }, [axiosSequre]);
-
+  console.log('employess', employees, setEmployees);
   // Toggle Verification
   const toggleVerification = async id => {
     try {
@@ -73,13 +73,15 @@ const EmployeeList = () => {
     }
 
     const paymentRequest = {
-      employeeId: selectedEmployee._id,
-      employees: user.displayName,
-      email: user.email,
+      employeeId: employees._id,
+      employees: selectedEmployee.name,
+      email: selectedEmployee.email,
       salary: selectedEmployee.salary,
       month: paymentDetails.month,
       year: paymentDetails.year,
     };
+
+    console.log(paymentRequest);
 
     try {
       await axiosSequre.post('/payroll', paymentRequest);

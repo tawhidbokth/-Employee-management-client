@@ -12,6 +12,8 @@ const AllEmployee = () => {
   const axsiosSequre = useAxsioSequre();
   const [users, refetch] = useUsers();
 
+  const filteredUsers = users.filter(user => user.role !== 'admin');
+
   // Fire employee
   const fireEmployee = async id => {
     try {
@@ -95,7 +97,7 @@ const AllEmployee = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map(user => (
+              {filteredUsers.map(user => (
                 <tr key={user._id} className="text-center">
                   <td className="border border-gray-300 p-3">{user.name}</td>
                   <td className="border border-gray-300 p-3">
@@ -145,7 +147,7 @@ const AllEmployee = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {users.map(user => (
+          {filteredUsers.map(user => (
             <div
               key={user._id}
               className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center"
@@ -162,15 +164,19 @@ const AllEmployee = () => {
                     Make HR
                   </button>
                 )}
-                <button
-                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                  onClick={() => {
-                    setSelectedUser(user);
-                    setShowModal(true);
-                  }}
-                >
-                  Fire
-                </button>
+                {user.role === 'Fired' ? (
+                  <span className="text-red-600 font-semibold">Fired</span>
+                ) : (
+                  <button
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                    onClick={() => {
+                      setSelectedUser(user);
+                      setShowModal(true);
+                    }}
+                  >
+                    Fire
+                  </button>
+                )}
                 <button
                   className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
                   onClick={() => {
@@ -217,7 +223,7 @@ const AllEmployee = () => {
                       'New salary must be greater than current salary!',
                       'error'
                     );
-                    return; // বেতন বাড়ানোর নিয়ম না মানলে কাজ থামাবে
+                    return;
                   }
                   adjustSalary(selectedUser?._id, parseInt(newSalary));
                   setShowSalaryModal(false);

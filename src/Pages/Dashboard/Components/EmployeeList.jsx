@@ -27,7 +27,7 @@ const EmployeeList = () => {
     };
     fetchEmployees();
   }, [axiosSequre]);
-  console.log('employess', employees, setEmployees);
+
   // Toggle Verification
   const toggleVerification = async id => {
     try {

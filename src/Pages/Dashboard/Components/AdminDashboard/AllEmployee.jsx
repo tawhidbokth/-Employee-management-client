@@ -84,7 +84,7 @@ const AllEmployee = () => {
 
       {/* User List */}
       {isTableView ? (
-        <div className="overflow-x-auto h-[450px]">
+        <div className="overflow-x-auto lg:h-[450px]">
           <table className="w-full border-collapse border border-gray-300">
             <thead>
               <tr className="bg-gray-200">

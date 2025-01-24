@@ -1,10 +1,23 @@
-import { useState } from 'react';
-import usePayroll from '../../../../Hooks/usePayroll';
+import { useEffect, useState } from 'react';
+import useAxsioSequre from '../../../../Hooks/useAxsioSequre';
 
 const Payroll = () => {
-  const [payroll] = usePayroll(); // Assume `payroll` contains the entire dataset
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
+  const [payroll, setPayroll] = useState([]);
+  const axiosSequre = useAxsioSequre();
+
+  useEffect(() => {
+    const fetchPayroll = async () => {
+      try {
+        const { data } = await axiosSequre.get('/payroll');
+        setPayroll(data);
+      } catch (error) {
+        console.error('Error fetching employees:', error);
+      }
+    };
+    fetchPayroll();
+  }, [axiosSequre]);
 
   const totalPages = Math.ceil(payroll.length / rowsPerPage);
   const currentData = payroll.slice(
@@ -16,10 +29,24 @@ const Payroll = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
-  console.log('data corent', currentData);
-
   const handlePrevious = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handlePay = async id => {
+    const paymentDate = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+    const updatedPayroll = payroll.map(req =>
+      req._id === id ? { ...req, paid: true, paymentDate } : req
+    );
+
+    setPayroll(updatedPayroll);
+
+    // Optionally, make an API request to update the data on the server
+    try {
+      await axiosSequre.put(`/payroll/${id}`, { paid: true, paymentDate });
+    } catch (error) {
+      console.error('Error updating payment status:', error);
+    }
   };
 
   return (
@@ -54,7 +81,7 @@ const Payroll = () => {
           </thead>
           <tbody>
             {currentData.map(req => (
-              <tr key={req.id} className="hover:bg-gray-50">
+              <tr key={req._id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 text-sm text-gray-900 border-b">
                   {req.employees}
                 </td>
@@ -75,8 +102,8 @@ const Payroll = () => {
                     <span className="text-green-600 font-semibold">Paid</span>
                   ) : (
                     <button
-                      onClick={() => paySalary(req._id)}
                       className="px-4 py-2 bg-blue-500 text-white text-sm rounded hover:bg-blue-600"
+                      onClick={() => handlePay(req._id)} // Add onClick handler for the "Pay" button
                     >
                       Pay
                     </button>

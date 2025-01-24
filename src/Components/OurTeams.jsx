@@ -3,8 +3,8 @@ const OurTeams = () => {
     <div>
       <section class="bg-gray-900 body-font">
         <div class="container px-5 py-24 mx-auto ">
-          <div class="flex flex-col text-center bg-slate-700 w-1/2 mx-auto p-4 rounded-xl mb-20">
-            <h1 class="text-4xl font-medium title-font mb-4 text-white tracking-widest">
+          <div class="flex flex-col text-center bg-slate-700 lg:w-1/2 mx-auto p-4 rounded-xl mb-20">
+            <h1 class="lg:text-4xl text-2xl font-medium title-font mb-4 text-white tracking-widest">
               OUR TEAM
             </h1>
             <p class="lg:w-2/3 mx-auto leading-relaxed text-white">

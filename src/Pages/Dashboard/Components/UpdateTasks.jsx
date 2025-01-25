@@ -1,20 +1,17 @@
 import { useLoaderData } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import useAxsioSequre from '../../../Hooks/useAxsioSequre';
 
 const UpdateTasks = () => {
-  const tasks = useLoaderData();
+  const tasks = useLoaderData;
+  const axsiosSequre = useAxsioSequre();
   const handleupdate = e => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const initialData = Object.fromEntries(formData.entries());
     console.log(initialData);
-    fetch(`http://localhost:5000/tasks/${tasks._id}`, {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(initialData),
-    })
+    axsiosSequre
+      .put(`/tasks/${tasks._id}`, initialData)
       .then(res => res.json())
       .then(data => {
         console.log(data);

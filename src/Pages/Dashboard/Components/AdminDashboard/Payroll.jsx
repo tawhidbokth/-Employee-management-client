@@ -34,16 +34,30 @@ const Payroll = () => {
   };
 
   const handlePay = async id => {
-    const paymentDate = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
+    // Generate a random transaction ID
+    const generateTransactionId = () => {
+      const randomPart = Math.random().toString(36).substr(2, 6);
+      const timestamp = Date.now().toString(36);
+      return `TXN-${timestamp}-${randomPart}`;
+    };
+
+    const transactionId = generateTransactionId();
+    const paymentDate = new Date().toISOString().split('T')[0];
+
+    // Update the payroll with the transaction ID, payment date, and paid status
     const updatedPayroll = payroll.map(req =>
-      req._id === id ? { ...req, paid: true, paymentDate } : req
+      req._id === id ? { ...req, paid: true, paymentDate, transactionId } : req
     );
 
     setPayroll(updatedPayroll);
 
-    // Optionally, make an API request to update the data on the server
+    // Make an API request to update the data on the server
     try {
-      await axiosSequre.put(`/payroll/${id}`, { paid: true, paymentDate });
+      await axiosSequre.put(`/payroll/${id}`, {
+        paid: true,
+        paymentDate,
+        transactionId,
+      });
     } catch (error) {
       console.error('Error updating payment status:', error);
     }
@@ -103,7 +117,7 @@ const Payroll = () => {
                   ) : (
                     <button
                       className="px-4 py-2 bg-blue-500 text-white text-sm rounded hover:bg-blue-600"
-                      onClick={() => handlePay(req._id)} // Add onClick handler for the "Pay" button
+                      onClick={() => handlePay(req._id)}
                     >
                       Pay
                     </button>

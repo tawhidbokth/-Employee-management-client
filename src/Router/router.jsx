@@ -16,11 +16,9 @@ import UpdateTasks from '../Pages/Dashboard/Components/UpdateTasks';
 import WellcomePage from '../Pages/Dashboard/WellcomePage';
 import AllEmployee from '../Pages/Dashboard/Components/AdminDashboard/AllEmployee';
 import InboxAdmin from '../Pages/Dashboard/Components/AdminDashboard/InboxAdmin';
-import PrivateRoute from './PrivateRoute';
 import Policy from '../Components/Policy';
 import AdminRoute from './AdminRoute';
 import HrRoute from './HrRoute';
-
 const router = createBrowserRouter([
   {
     path: '/',

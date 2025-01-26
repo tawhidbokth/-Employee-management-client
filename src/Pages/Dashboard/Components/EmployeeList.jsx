@@ -126,9 +126,12 @@ const EmployeeList = () => {
       id: 'details',
       header: 'Details',
       cell: info => (
-        <button className="px-3 py-1 text-white rounded bg-blue-500 hover:bg-blue-600">
+        <Link
+          to={`/dashboard/slug/${info.row.original._id}`} // Pass the employee ID in the URL
+          className="px-3 py-1 text-white rounded bg-blue-500 hover:bg-blue-600"
+        >
           Details
-        </button>
+        </Link>
       ),
     }),
     columnHelper.display({

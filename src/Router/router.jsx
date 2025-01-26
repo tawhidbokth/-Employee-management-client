@@ -7,18 +7,18 @@ import Dashboard from '../Layout/Dashboard';
 import WorkSheet from '../Pages/Dashboard/Components/workSheet';
 import PaymentHistory from '../Pages/Dashboard/Components/PaymentHistory';
 import EmployeeList from '../Pages/Dashboard/Components/EmployeeList';
-import EmployeeDetails from '../Pages/Dashboard/Components/EmployeeDetails';
 import Progress from '../Pages/Dashboard/Components/Progress';
 import Payroll from '../Pages/Dashboard/Components/AdminDashboard/Payroll';
 import Register from '../Auth/Register';
 import Login from '../Auth/Login';
-import UpdateTasks from '../Pages/Dashboard/Components/UpdateTasks';
 import WellcomePage from '../Pages/Dashboard/WellcomePage';
 import AllEmployee from '../Pages/Dashboard/Components/AdminDashboard/AllEmployee';
 import InboxAdmin from '../Pages/Dashboard/Components/AdminDashboard/InboxAdmin';
 import Policy from '../Components/Policy';
 import AdminRoute from './AdminRoute';
 import HrRoute from './HrRoute';
+import EmployeeRoute from './EmployeeRoute';
+import EmployeeDetails from './../Pages/Dashboard/Components/EmployeeDetails';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -62,26 +62,25 @@ const router = createBrowserRouter([
 
       {
         path: 'worksheet',
-        element: <WorkSheet></WorkSheet>,
-      },
-
-      {
-        path: 'update/:id',
-        element: <UpdateTasks></UpdateTasks>,
-        loader: ({ params }) =>
-          fetch(`http://localhost:5000/tasks/${params.id}`),
+        element: (
+          <EmployeeRoute>
+            <WorkSheet></WorkSheet>,
+          </EmployeeRoute>
+        ),
       },
 
       {
         path: 'paymanthistory',
-        element: <PaymentHistory></PaymentHistory>,
+        element: (
+          <EmployeeRoute>
+            <PaymentHistory></PaymentHistory>,
+          </EmployeeRoute>
+        ),
       },
 
       {
-        path: 'slug',
+        path: 'slug/:id', // Add dynamic route parameter
         element: <EmployeeDetails></EmployeeDetails>,
-        loader: ({ params }) =>
-          fetch(`http://localhost:5000/payroll/${params.id}`),
       },
 
       {

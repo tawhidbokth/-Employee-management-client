@@ -9,9 +9,7 @@ const usePayroll = () => {
   const { refetch, data: payroll = [] } = useQuery({
     queryKey: ['payroll'],
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `http://localhost:5000/payroll/?email=${user.email}`
-      );
+      const res = await axiosSecure.get(`/payroll/?email=${user.email}`);
       return res.data;
     },
   });

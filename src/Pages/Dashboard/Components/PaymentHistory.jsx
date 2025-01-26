@@ -23,7 +23,7 @@ const PaymentHistory = () => {
   const prevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
-
+  console.log(payroll);
   return (
     <div className="max-w-4xl mx-auto p-4 bg-gray-100 shadow-md rounded-lg">
       <h1 className="text-2xl lg:text-4xl font-bold mb-4 text-center text-yellow-600">

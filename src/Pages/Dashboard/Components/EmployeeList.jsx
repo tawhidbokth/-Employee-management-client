@@ -73,7 +73,7 @@ const EmployeeList = () => {
     }
 
     const paymentRequest = {
-      employeeId: employees._id,
+      employeeId: selectedEmployee._id,
       employees: selectedEmployee.name,
       email: selectedEmployee.email,
       salary: selectedEmployee.salary,

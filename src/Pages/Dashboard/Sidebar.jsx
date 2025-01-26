@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useAdmin from '../../Hooks/useAdmin';
 import useHr from '../../Hooks/useHr';
+import useEmployee from '../../Hooks/useEmployee';
 
 const Sidebar = () => {
   const [isAdmin] = useAdmin();
   const [isHr] = useHr();
+  const [isEmployee] = useEmployee();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Toggle sidebar open/close
@@ -205,7 +207,7 @@ const Sidebar = () => {
                   </a>
                 </Link>
               </>
-            ) : (
+            ) : isEmployee ? (
               <>
                 <Link to={'/dashboard/worksheet'}>
                   <li>
@@ -256,7 +258,35 @@ const Sidebar = () => {
                   </li>
                 </Link>
               </>
+            ) : (
+              <p className="text-red-800 text-center">
+                You have been fired from the company!
+              </p>
             )}
+            <hr />
+
+            <Link to={'/'}>
+              <li>
+                <a className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3 10.5l9-9 9 9M21 10.5V21a1.5 1.5 0 01-1.5 1.5h-5.25A1.5 1.5 0 0113.5 21v-4.5a1.5 1.5 0 00-1.5-1.5h-3a1.5 1.5 0 00-1.5 1.5V21a1.5 1.5 0 01-1.5 1.5H4.5A1.5 1.5 0 013 21v-10.5z"
+                    />
+                  </svg>
+
+                  <span className="flex-1 ms-3 whitespace-nowrap">Home</span>
+                </a>
+              </li>
+            </Link>
           </ul>
         </div>
       </aside>

@@ -6,7 +6,7 @@ React, Firebase, and Node.js.
 
 ## Live Site URL
 
-[Deployed Website Link](#) (https://employee-managment-2a8b8.web.app/)
+[Deployed Website Link](#) (https://employeemanagement01.netlify.app/)
 
 ---
 

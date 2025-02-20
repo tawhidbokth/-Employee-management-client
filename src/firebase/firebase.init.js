@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore'; // Firestore ইমপোর্ট
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -10,6 +11,9 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_APP_ID,
 };
 
-// Initialize Firebase
+// Firebase ইনিশিয়ালাইজ
 const app = initializeApp(firebaseConfig);
+
+// auth ও firestore এক্সপোর্ট
 export const auth = getAuth(app);
+export const db = getFirestore(app); // Firestore ইনিশিয়ালাইজ

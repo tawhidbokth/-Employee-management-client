@@ -19,6 +19,7 @@ import AdminRoute from './AdminRoute';
 import HrRoute from './HrRoute';
 import EmployeeRoute from './EmployeeRoute';
 import EmployeeDetails from './../Pages/Dashboard/Components/EmployeeDetails';
+import ProfilePage from '../Pages/Dashboard/Components/ProfilePage';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -123,6 +124,11 @@ const router = createBrowserRouter([
             <InboxAdmin></InboxAdmin>
           </AdminRoute>
         ),
+      },
+
+      {
+        path: 'profile',
+        element: <ProfilePage></ProfilePage>,
       },
     ],
   },

@@ -6,7 +6,7 @@ const services = [
     title: 'Custom Wall Art',
     description:
       'Beautiful handmade wall art for your home, crafted with care.',
-    image: 'https://via.placeholder.com/300',
+    image: 'https://i.ibb.co.com/tM23c2FG/Wall-Art-Decorate-your-home-min.jpg',
     details:
       'We offer unique custom wall art, designed to fit your home decor perfectly. Choose from various styles and materials.',
   },
@@ -14,7 +14,8 @@ const services = [
     id: 2,
     title: 'Interior Design',
     description: 'Transform your home with expert interior design services.',
-    image: 'https://via.placeholder.com/300',
+    image:
+      'https://i.ibb.co.com/ycYN7SwP/Luxury-Interior-Design-Living-Room-1080x675.webp',
     details:
       'Our professional interior designers help you redesign your space with modern, stylish, and comfortable themes.',
   },
@@ -22,7 +23,7 @@ const services = [
     id: 3,
     title: 'Furniture Assembly',
     description: 'Professional furniture setup services at your home.',
-    image: 'https://via.placeholder.com/300',
+    image: 'https://i.ibb.co.com/cGzKdZp/Assembling-Furniture-full.jpg',
     details:
       'We provide expert furniture assembly services, ensuring your new furniture is set up quickly and securely.',
   },
@@ -33,7 +34,7 @@ const RecentServices = () => {
 
   return (
     <div className="container mx-auto px-4 py-10">
-      <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
+      <h2 className="lg:text-4xl text-2xl font-bold text-center bg-slate-700 w-1/2 mx-auto rounded-lg p-4  text-white mb-10">
         🛠️ Recent Services
       </h2>
       <div className="grid md:grid-cols-3 gap-6">

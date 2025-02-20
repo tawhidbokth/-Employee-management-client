@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import RecentServices from './RecentServices';
+import OurWorkProof from './OurWorkProof';
 
 const SalesPromotion = () => {
   const [timeLeft, setTimeLeft] = useState(48 * 60 * 60); // 48 hours countdown
@@ -59,6 +60,7 @@ const SalesPromotion = () => {
       </div>
 
       <RecentServices></RecentServices>
+      <OurWorkProof></OurWorkProof>
     </div>
   );
 };

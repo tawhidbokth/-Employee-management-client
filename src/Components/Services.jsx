@@ -3,7 +3,7 @@ const Services = () => {
     <section className="bg-gray-900 py-12">
       <div className="container mx-auto px-4">
         <h2 className="lg:text-4xl text-2xl font-bold text-center bg-slate-700 w-1/2 mx-auto rounded-lg p-4  text-white mb-8">
-          Our Services
+          Featured Services
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Service Card 1 */}

@@ -9,7 +9,7 @@ const Services = () => {
           {/* Service Card 1 */}
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <img
-              src="https://i.ibb.co.com/pnXqCyM/e1.jpg"
+              src="https://i.ibb.co.com/v4tx2GKp/s1.jpg"
               alt="Home Cleaning"
               className="w-full h-auto object-cover"
             />
@@ -25,7 +25,7 @@ const Services = () => {
           {/* Service Card 2 */}
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <img
-              src="https://i.ibb.co.com/YbXD9Jn/e2.jpg"
+              src="https://i.ibb.co.com/SDphyDR2/s2.jpg"
               alt="Gardening"
               className="w-full h-auto object-cover"
             />
@@ -41,7 +41,7 @@ const Services = () => {
           {/* Service Card 3 */}
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <img
-              src="https://i.ibb.co.com/QrjFnhd/e3.jpg"
+              src="https://i.ibb.co.com/JFFSxyfD/Residential-Plumbing-Service.jpg"
               alt="Plumbing"
               className="w-full h-auto object-cover"
             />
@@ -57,7 +57,7 @@ const Services = () => {
           {/* Service Card 4 */}
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <img
-              src="https://i.ibb.co.com/09MZ651/e4.jpg"
+              src="https://i.ibb.co.com/Pzf2sqj2/s4.webp"
               alt="Electrical Repair"
               className="w-full h-auto object-cover"
             />
@@ -73,7 +73,7 @@ const Services = () => {
           {/* Service Card 5 */}
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <img
-              src="https://i.ibb.co.com/TThWBwk/e5.jpg"
+              src="https://i.ibb.co.com/JWsysLcb/s5.webp"
               alt="Painting"
               className="w-full h-auto object-cover"
             />
@@ -89,7 +89,7 @@ const Services = () => {
           {/* Service Card 6 */}
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <img
-              src="  https://i.ibb.co.com/PcxCTjh/e6.jpg"
+              src=" https://i.ibb.co.com/FkNP5BWV/s6.jpg"
               alt="Appliance Repairs"
               className="w-full h-auto object-cover"
             />

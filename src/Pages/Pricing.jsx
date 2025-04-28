@@ -20,8 +20,8 @@ const Pricing = () => {
             </div>
           </div>
           <div class="flex flex-wrap -m-4">
-            <div class="p-4 xl:w-1/4 md:w-1/2 w-full">
-              <div class="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden">
+            <div class="p-4 xl:w-1/4 md:w-1/2 w-full hover:scale-105 transition duration-300 ease-in-out hover:border-indigo-500 border-2">
+              <div class="h-full p-6 rounded-lg flex flex-col relative overflow-hidden">
                 <h2 class="text-sm tracking-widest title-font mb-1 font-medium">
                   START
                 </h2>
@@ -95,8 +95,9 @@ const Pricing = () => {
                 </p>
               </div>
             </div>
-            <div class="p-4 xl:w-1/4 md:w-1/2 w-full">
-              <div class="h-full p-6 rounded-lg border-2 border-indigo-500 flex flex-col relative overflow-hidden">
+
+            <div class="p-4 xl:w-1/4 md:w-1/2 w-full hover:scale-105 transition duration-300 ease-in-out hover:border-indigo-500 border-2">
+              <div class="h-full p-6 rounded-lg  flex flex-col relative overflow-hidden">
                 <span class="bg-indigo-500 text-white px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl">
                   POPULAR
                 </span>
@@ -192,8 +193,8 @@ const Pricing = () => {
                 </p>
               </div>
             </div>
-            <div class="p-4 xl:w-1/4 md:w-1/2 w-full">
-              <div class="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden">
+            <div class="p-4 xl:w-1/4 md:w-1/2 w-full hover:scale-105 transition duration-300 ease-in-out hover:border-indigo-500 border-2">
+              <div class="h-full p-6 rounded-lg  flex flex-col relative overflow-hidden">
                 <h2 class="text-sm tracking-widest title-font mb-1 font-medium">
                   BUSINESS
                 </h2>
@@ -302,8 +303,8 @@ const Pricing = () => {
                 </p>
               </div>
             </div>
-            <div class="p-4 xl:w-1/4 md:w-1/2 w-full">
-              <div class="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden">
+            <div class="p-4 xl:w-1/4 md:w-1/2 w-full hover:scale-105 transition duration-300 ease-in-out hover:border-indigo-500 border-2">
+              <div class="h-full p-6 rounded-lg flex flex-col relative overflow-hidden">
                 <h2 class="text-sm tracking-widest title-font mb-1 font-medium">
                   SPECIAL
                 </h2>

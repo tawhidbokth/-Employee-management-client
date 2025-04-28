@@ -40,6 +40,12 @@ const Navbar = () => {
           Contact
         </NavLink>
       </li>
+      <li className="my-2 lg:my-0 lg:mx-4">
+        <NavLink to="pricing" className="hover:text-orange-500">
+          Pricing
+        </NavLink>
+      </li>
+
       {user ? (
         <li className="my-2 lg:my-0 lg:mx-4">
           <NavLink to="/dashboard/dashboard" className="hover:text-orange-500">

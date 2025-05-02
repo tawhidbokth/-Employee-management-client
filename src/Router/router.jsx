@@ -23,6 +23,7 @@ import ProfilePage from '../Pages/Dashboard/Components/ProfilePage';
 import Pricing from '../Pages/Pricing';
 import Faq from '../Components/Faq';
 import ChatSupport from '../Pages/Dashboard/Components/ChatSuppurt';
+import TicketSystem from '../Pages/Dashboard/Components/TicketSystem';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -145,6 +146,11 @@ const router = createBrowserRouter([
       {
         path: 'chatsupport',
         element: <ChatSupport></ChatSupport>,
+      },
+
+      {
+        path: 'supportrequests',
+        element: <TicketSystem></TicketSystem>,
       },
     ],
   },

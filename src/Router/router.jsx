@@ -21,6 +21,7 @@ import EmployeeRoute from './EmployeeRoute';
 import EmployeeDetails from './../Pages/Dashboard/Components/EmployeeDetails';
 import ProfilePage from '../Pages/Dashboard/Components/ProfilePage';
 import Pricing from '../Pages/Pricing';
+import Faq from '../Components/Faq';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -134,6 +135,11 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <ProfilePage></ProfilePage>,
+      },
+
+      {
+        path: 'faq',
+        element: <Faq></Faq>,
       },
     ],
   },

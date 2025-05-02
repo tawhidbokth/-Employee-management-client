@@ -285,6 +285,44 @@ const Sidebar = () => {
                 </a>
               </li>
             </Link>
+
+            <Link to={'/dashboard/faq'}>
+              <li>
+                <a className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <svg
+                    width="24"
+                    height="48"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                      stroke="#3B82F6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M9.09 9C9.3251 8.33167 9.78515 7.76811 10.4 7.40913C11.0148 7.05016 11.7389 6.91894 12.4272 7.03871C13.1155 7.15849 13.7208 7.52152 14.1261 8.06353C14.5314 8.60553 14.7075 9.28352 14.62 9.956C14.62 12 12 13 12 13"
+                      stroke="#3B82F6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12 17H12.01"
+                      stroke="#3B82F6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <span className="flex-1 ms-3 whitespace-nowrap">FAQ</span>
+                </a>
+              </li>
+            </Link>
+
             <Link to={'/'}>
               <li>
                 <a className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">

@@ -1,5 +1,6 @@
 import AnnouncementSection from '../AnnouncementSection ';
 import Banner from '../Banner';
+import Faq from '../Faq';
 import OurTeams from '../OurTeams';
 import SalesPromotion from '../SalesPromotion';
 import Services from '../Services';

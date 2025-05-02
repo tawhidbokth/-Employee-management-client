@@ -2,6 +2,19 @@ import React, { useState } from 'react';
 
 const Pricing = () => {
   const [isAnnual, setIsAnnual] = useState(false);
+  const [toasts, setToasts] = useState([]);
+
+  const showToast = message => {
+    const id = Date.now();
+    const newToast = { id, message };
+
+    setToasts(prev => [...prev, newToast]);
+
+    // Auto-remove toast after 3 seconds
+    setTimeout(() => {
+      setToasts(prev => prev.filter(toast => toast.id !== id));
+    }, 3000);
+  };
 
   const pricingPlans = [
     {
@@ -66,8 +79,42 @@ const Pricing = () => {
     },
   ];
 
+  const handlePlanClick = planName => {
+    let message;
+    if (planName === 'START') {
+      message = 'Free plan selected! Redirecting to signup...';
+    } else if (planName === 'PRO') {
+      message = "Pro plan selected! Let's set up your account.";
+    } else if (planName === 'BUSINESS') {
+      message = 'Business plan selected! Our team will contact you shortly.';
+    } else {
+      message = 'Enterprise solution requested! Our sales team will reach out.';
+    }
+    showToast(message);
+  };
+
   return (
-    <div className="bg-gray-50">
+    <div className="bg-gray-50 relative min-h-screen">
+      {/* Toast Notifications Container */}
+      <div className="fixed bottom-4 right-4 z-50 space-y-2">
+        {toasts.map(toast => (
+          <div
+            key={toast.id}
+            className="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg flex items-center animate-fade-in"
+          >
+            <span>{toast.message}</span>
+            <button
+              onClick={() =>
+                setToasts(prev => prev.filter(t => t.id !== toast.id))
+              }
+              className="ml-4 text-white hover:text-indigo-200"
+            >
+              ×
+            </button>
+          </div>
+        ))}
+      </div>
+
       <section className="text-gray-600 body-font overflow-hidden">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-col text-center w-full mb-20">
@@ -145,6 +192,7 @@ const Pricing = () => {
                     </p>
                   ))}
                   <button
+                    onClick={() => handlePlanClick(plan.name)}
                     className={`mt-6 flex items-center justify-center text-white border-0 py-3 px-6 w-full focus:outline-none rounded-lg font-medium ${
                       plan.popular
                         ? 'bg-indigo-500 hover:bg-indigo-600'
@@ -175,6 +223,23 @@ const Pricing = () => {
           </div>
         </div>
       </section>
+
+      {/* Add animation styles in your CSS or use a CSS-in-JS solution */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.3s ease-out forwards;
+        }
+      `}</style>
     </div>
   );
 };

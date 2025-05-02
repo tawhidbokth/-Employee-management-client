@@ -22,6 +22,7 @@ import EmployeeDetails from './../Pages/Dashboard/Components/EmployeeDetails';
 import ProfilePage from '../Pages/Dashboard/Components/ProfilePage';
 import Pricing from '../Pages/Pricing';
 import Faq from '../Components/Faq';
+import ChatSupport from '../Pages/Dashboard/Components/ChatSuppurt';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -140,6 +141,10 @@ const router = createBrowserRouter([
       {
         path: 'faq',
         element: <Faq></Faq>,
+      },
+      {
+        path: 'chatsupport',
+        element: <ChatSupport></ChatSupport>,
       },
     ],
   },

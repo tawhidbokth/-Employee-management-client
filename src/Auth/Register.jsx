@@ -64,7 +64,7 @@ const Register = () => {
           };
 
           // Save user to database
-          fetch('https://employee-management-server-tawny.vercel.app/users', {
+          fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

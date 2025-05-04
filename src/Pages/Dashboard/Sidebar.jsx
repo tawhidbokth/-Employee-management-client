@@ -257,6 +257,113 @@ const Sidebar = () => {
                     </a>
                   </li>
                 </Link>
+
+                <Link to={'/dashboard/faq'}>
+                  <li>
+                    <a className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                      <svg
+                        width="24"
+                        height="48"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                          stroke="#3B82F6"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M9.09 9C9.3251 8.33167 9.78515 7.76811 10.4 7.40913C11.0148 7.05016 11.7389 6.91894 12.4272 7.03871C13.1155 7.15849 13.7208 7.52152 14.1261 8.06353C14.5314 8.60553 14.7075 9.28352 14.62 9.956C14.62 12 12 13 12 13"
+                          stroke="#3B82F6"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12 17H12.01"
+                          stroke="#3B82F6"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <span className="flex-1 ms-3 whitespace-nowrap">FAQ</span>
+                    </a>
+                  </li>
+                </Link>
+
+                <Link to={'/dashboard/chatsupport'}>
+                  <li>
+                    <a className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8 10H16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M8 14H12"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                        />
+                        <circle
+                          cx="18"
+                          cy="6"
+                          r="3"
+                          fill="#FF5252"
+                          stroke="white"
+                          stroke-width="1.5"
+                        />
+                      </svg>
+                      <span className="flex-1 ms-3 whitespace-nowrap">
+                        Live Help Desk
+                      </span>
+                    </a>
+                  </li>
+                </Link>
+
+                <Link to={'/dashboard/supportrequests'}>
+                  <li>
+                    <a className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M15 5V7M15 11V13M15 17V19M5 5H19C20.1046 5 21 5.89543 21 7V10C19.8954 10 19 10.8954 19 12C19 13.1046 19.8954 14 21 14V17C21 18.1046 20.1046 19 19 19H5C3.89543 19 3 18.1046 3 17V14C4.10457 14 5 13.1046 5 12C5 10.8954 4.10457 10 3 10V7C3 5.89543 3.89543 5 5 5Z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <span className="flex-1 ms-3 whitespace-nowrap">
+                        Support Requests
+                      </span>
+                    </a>
+                  </li>
+                </Link>
               </>
             ) : (
               <p className="text-red-800 text-center">
@@ -282,113 +389,6 @@ const Sidebar = () => {
                   </svg>
 
                   <span className="flex-1 ms-3 whitespace-nowrap">Profile</span>
-                </a>
-              </li>
-            </Link>
-
-            <Link to={'/dashboard/faq'}>
-              <li>
-                <a className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                  <svg
-                    width="24"
-                    height="48"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                      stroke="#3B82F6"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M9.09 9C9.3251 8.33167 9.78515 7.76811 10.4 7.40913C11.0148 7.05016 11.7389 6.91894 12.4272 7.03871C13.1155 7.15849 13.7208 7.52152 14.1261 8.06353C14.5314 8.60553 14.7075 9.28352 14.62 9.956C14.62 12 12 13 12 13"
-                      stroke="#3B82F6"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M12 17H12.01"
-                      stroke="#3B82F6"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <span className="flex-1 ms-3 whitespace-nowrap">FAQ</span>
-                </a>
-              </li>
-            </Link>
-
-            <Link to={'/dashboard/chatsupport'}>
-              <li>
-                <a className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M8 10H16"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                    <path
-                      d="M8 14H12"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                    <circle
-                      cx="18"
-                      cy="6"
-                      r="3"
-                      fill="#FF5252"
-                      stroke="white"
-                      stroke-width="1.5"
-                    />
-                  </svg>
-                  <span className="flex-1 ms-3 whitespace-nowrap">
-                    Live Help Desk
-                  </span>
-                </a>
-              </li>
-            </Link>
-
-            <Link to={'/dashboard/supportrequests'}>
-              <li>
-                <a className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M15 5V7M15 11V13M15 17V19M5 5H19C20.1046 5 21 5.89543 21 7V10C19.8954 10 19 10.8954 19 12C19 13.1046 19.8954 14 21 14V17C21 18.1046 20.1046 19 19 19H5C3.89543 19 3 18.1046 3 17V14C4.10457 14 5 13.1046 5 12C5 10.8954 4.10457 10 3 10V7C3 5.89543 3.89543 5 5 5Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <span className="flex-1 ms-3 whitespace-nowrap">
-                    Support Requests
-                  </span>
                 </a>
               </li>
             </Link>

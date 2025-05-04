@@ -7,7 +7,7 @@ const ContactUs = () => {
     const initialData = Object.fromEntries(formData.entries());
     console.log(initialData);
 
-    fetch('https://employee-management-server-tawny.vercel.app/contact', {
+    fetch('http://localhost:5000/contact', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

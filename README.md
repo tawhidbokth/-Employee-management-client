@@ -12,14 +12,14 @@ React, Firebase, and Node.js.
 
 ## Admin Credentials
 
-- **Username:** admin123@gmail.com
+- **User:** admin123@gmail.com
 - **Password:** Admin12##
 
 ---
 
 ## HR Credentials
 
-- **Username:** ishr@gmail.com
+- **User:** ishr@gmail.com
 
 - **Password:** Ishr8848##
 

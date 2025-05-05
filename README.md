@@ -17,6 +17,12 @@ React, Firebase, and Node.js.
 
 ---
 
+## HR Credentials
+
+- **Username:** ishr@gmail.com
+
+- **Password:** Ishr8848##
+
 ## Key Features
 
 ### Authentication

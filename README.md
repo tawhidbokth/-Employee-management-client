@@ -23,6 +23,12 @@ React, Firebase, and Node.js.
 
 - **Password:** Ishr8848##
 
+## Employee Credentials
+
+- **User:** user@gmail.com
+
+- **Password:** User@gmail.com
+
 ## Key Features
 
 ### Authentication
